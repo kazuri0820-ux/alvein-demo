@@ -127,8 +127,10 @@ summary{min-height:44px;display:flex;align-items:center;cursor:pointer}
 </style></head><body><main><header><h1>アルヴェイン 運命の手札</h1><small id="edition">試作 0.1.2</small></header><div id="notice" class="notice" role="status"></div><div id="view"></div></main><nav class="nav" id="nav" aria-label="王国メニュー"></nav><script src="./pixel-engine.js"></script><script src="./deck-core.js?v=0.1.1"></script><script>
 'use strict';
 const E=AlveinDeck,P=window.AlveinPixelEngine,$=id=>document.getElementById(id);
-const mode=new URLSearchParams(location.search).get('energy')==='shared'?'shared':'personal';
-const K=mode==='shared'?'alvein-deck-destiny-shared-v1':'alvein-deck-destiny-v1';
+const query=new URLSearchParams(location.search);
+const practice=query.get('practice')==='1';
+const mode=!practice&&query.get('energy')==='shared'?'shared':'personal';
+const K=practice?'alvein-deck-destiny-practice-v1':mode==='shared'?'alvein-deck-destiny-shared-v1':'alvein-deck-destiny-v1';
 let s,raw=null,storage=true,notice='',tab='home',slot=0,active=0,card=-1,detail=null,learn=null,confirm='',pending=null,learnedHere=null;
 try{
   raw=localStorage.getItem(K);
@@ -142,6 +144,7 @@ try{
 if(!s)s=E.init();
 if(s.run)tab='battle';
 if(mode==='shared')$('edition').textContent='共有行動力・比較版';
+if(practice)$('edition').textContent='練習遠征 0.1.2';
 function save(){
   if(!storage)return;
   try{
@@ -204,6 +207,7 @@ function home(){
     }).join('')+'</div>'+
     '<details><summary>遠征の遊び方</summary><p>仲間をタップして手札を切り替えます。札を選び、表示された対象を押すと使えます。ターンを終えると敵が行動し、次の手札が届きます。</p><p>勝利するたびに札を拾えます。帰還時に1枚を持ち帰り、人物のデッキに装備できます。</p></details></div>'+
     hud([['募集令',s.coins],['所属',s.roster.length],['最深戦',s.record+'/3']])+
+    (practice?'<a class="experiment" href="?build=0.1.2">本編に戻る</a>':s.run||s.runs?'<a class="experiment" href="?build=0.1.2&amp;practice=1">別セーブで初回案内を試す</a>':'')+
     '<details><summary>比較モード</summary><a class="experiment" href="'+(mode==='shared'?'?energy=personal':'?energy=shared')+'">'+(mode==='shared'?'通常の個別行動力で遊ぶ':'共有行動力の比較版を遊ぶ')+'</a></details>';
 }
 const names=['霧の街道','黒樹の遺跡','星落ちの祭壇'];
