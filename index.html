@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#151b25">
+<title>アルヴェイン遠征記</title>
+<style>
+:root{color-scheme:dark;--ink:#f4e8ca;--gold:#d7b66d;--line:#756344;--muted:#b8b09e;--panel:#202b37;--panel2:#293746}*{box-sizing:border-box}html{background:#111821}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -20%,#34465a 0,#17222e 48%,#101720 100%);color:var(--ink);font-family:ui-serif,Georgia,"Yu Mincho",serif}button{font:inherit;touch-action:manipulation}#app{width:min(100%,760px);min-height:100vh;margin:auto;padding:calc(12px + env(safe-area-inset-top)) 12px calc(24px + env(safe-area-inset-bottom));}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:5px 2px 12px;border-bottom:1px solid #8b744d}.brand{font-size:clamp(18px,5vw,22px);letter-spacing:.08em;color:#f5dfaa;text-shadow:0 2px 14px #d7b66d33}.subtitle,.version{font:11px/1.5 system-ui,sans-serif;color:var(--muted)}.version{text-align:right;white-space:nowrap}.resources{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:11px 0}.resource,.panel{min-width:0;background:linear-gradient(145deg,#2b3947,#1a2530);border:1px solid var(--line);border-radius:11px;box-shadow:inset 0 1px #ffffff0a,0 4px 12px #0002}.resource{padding:9px 8px}.resource span{display:block;color:var(--muted);font:11px system-ui,sans-serif;white-space:nowrap}.resource b{display:block;margin-top:3px;color:#f4d58e;font:700 clamp(16px,4.6vw,20px) system-ui,sans-serif;font-variant-numeric:tabular-nums}.scene{overflow:hidden;border:2px solid #8d7447;border-radius:13px;background:#182432;box-shadow:0 10px 26px #0006}.scenehead{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;background:linear-gradient(90deg,#344252,#222e39);font:12px system-ui,sans-serif}.scenehead strong{color:#f1d28b}.scenehead .zone{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.stage-tag{flex:none;color:#c8b98f}.canvas-wrap{position:relative;background:#1a2937}canvas{display:block;width:100%;height:auto;image-rendering:pixelated}.battlefoot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;background:#202b37;font:12px system-ui,sans-serif}.battlefoot span:first-child{min-width:0}.battlefoot span:last-child{flex:none;color:#dfc27e}.enemy-hud{padding:0 12px 12px;background:#202b37}.enemy-label{display:flex;justify-content:space-between;gap:8px;color:#d7c9ad;font:11px system-ui,sans-serif}.enemy-label strong{color:#f2d48f}.hp-track{height:8px;margin-top:5px;overflow:hidden;border:1px solid #101820;border-radius:99px;background:#0d141b}.hp-fill{height:100%;width:100%;background:linear-gradient(90deg,#a84748,#e18b66);transition:width .16s linear}.section{margin-top:14px}.section-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 2px 8px;color:#e9ca83;font-size:15px}.section-note{color:var(--muted);font:10px system-ui,sans-serif}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.unit,.command{padding:10px}.unit-top{display:flex;align-items:center;gap:8px;min-height:36px}.unit-icon{display:grid;place-items:center;flex:none;width:34px;height:34px;border:1px solid #8b744d;border-radius:9px;background:#1a2530;font-size:19px}.unit strong,.command strong{font-size:13px}.unit small{display:block;margin-top:3px;color:var(--muted);font:11px system-ui,sans-serif}.buy{width:100%;min-height:44px;margin-top:9px;border:1px solid #b18d50;border-radius:8px;background:linear-gradient(#665235,#3b3024);color:#ffedc6;font:700 12px system-ui,sans-serif;padding:8px}.buy:active,.action:active{filter:brightness(1.18);transform:translateY(1px)}button:focus-visible{outline:2px solid #f1d28b;outline-offset:2px}button:disabled{opacity:.42;filter:saturate(.55)}.command p{min-height:30px;margin:5px 0 8px;color:var(--muted);font:11px/1.45 system-ui,sans-serif}.action{width:100%;min-height:44px;border:1px solid #b18d50;border-radius:8px;background:linear-gradient(#5b4930,#352c22);color:#ffedc6;font:700 12px system-ui,sans-serif;padding:8px}.record{padding:11px}.record h2{margin:0 0 7px;color:#e9ca83;font-size:15px}.log{min-height:38px;max-height:96px;overflow:auto;color:#c9c0ad;font:11px/1.65 system-ui,sans-serif;white-space:pre-line}.tabs{display:flex;gap:8px;margin-top:12px}.tabs button{flex:1;min-height:44px;border:1px solid #776343;border-radius:8px;background:#25313c;color:#e7d8b8;font:12px system-ui,sans-serif}.footer{margin-top:13px;color:#8d897d;text-align:center;font:10px/1.6 system-ui,sans-serif}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(min-width:560px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.command-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:350px){#app{padding-left:8px;padding-right:8px}.resource{padding:8px 5px}.resource span{font-size:10px}.unit{padding:8px}.unit strong{font-size:12px}}
+</style>
+</head>
+<body>
+<main id="app">
+<header class="top"><div><div class="brand">✦ アルヴェイン遠征記</div><div class="subtitle">王国暦 108年 · 北方辺境遠征</div></div><div class="version">試作 0.2.12-dev<br>王国遠征軍</div></header>
+<section class="resources" aria-label="所持資源"><div class="resource"><span>🪙 王国金貨</span><b id="gold">80</b></div><div class="resource"><span>⚔️ 遠征功績</span><b id="honor">0</b></div><div class="resource"><span>👥 遠征兵</span><b id="troops">1</b></div></section>
+<section class="scene" aria-label="戦場"><div class="scenehead"><span class="zone"><strong id="stage">第1区画</strong> · <span id="zone">霧の街道</span></span><span class="stage-tag" id="encounter">討伐 0</span></div><div class="canvas-wrap"><canvas id="battle" width="640" height="260" role="img" aria-label="王国軍と魔物が戦うドット絵の戦場"></canvas></div><div class="battlefoot"><span id="battleText" aria-live="polite">部隊が北方辺境へ進軍する。</span><span id="dps">戦力 1.4</span></div><div class="enemy-hud"><div class="enemy-label"><span>敵影：<strong id="enemyName">霧牙狼</strong></span><span id="enemyHpText">HP 26 / 26</span></div><div class="hp-track"><div class="hp-fill" id="enemyHpBar"></div></div></div></section>
+<section class="section"><h2 class="section-title">遠征部隊 <span class="section-note">兵種を育てて戦線を押し上げよう</span></h2><div class="grid">
+<article class="panel unit"><div class="unit-top"><span class="unit-icon">🛡️</span><div><strong>王国歩兵</strong><small id="infantry">Lv.1 · 1名</small></div></div><button class="buy" id="upInf">歩兵を強化 · 35 G</button></article>
+<article class="panel unit"><div class="unit-top"><span class="unit-icon">🏹</span><div><strong>森林弓兵</strong><small id="archer">Lv.1 · 0名</small></div></div><button class="buy" id="hireArch">弓兵を募集 · 35 G</button></article>
+<article class="panel unit"><div class="unit-top"><span class="unit-icon">✨</span><div><strong>星詠み術師</strong><small id="mage">未解放</small></div></div><button class="buy" id="hireMage">契約する · 180 G</button></article>
+</div></section>
+<section class="section"><h2 class="section-title">司令部 <span class="section-note" id="medals">永続勲章 0枚</span></h2><div class="grid command-grid">
+<article class="panel command"><strong>⚒️ 鍛錬場</strong><p>全兵種の攻撃力を15%上昇</p><button class="action" id="train">全軍を鍛錬 · 75 G</button></article>
+<article class="panel command"><strong>🏰 王国への帰還</strong><p>功績500ごとに永続勲章を獲得。勲章は攻撃力に加算</p><button class="action" id="rebirth">遠征を再編 · 功績 500</button></article>
+</div></section>
+<section class="section panel record"><h2>遠征記録</h2><div class="log" id="log">王国の旗が北風にはためく。新たな遠征が始まった。</div></section>
+<div class="tabs"><button id="save">記録を保存</button><button id="reset">最初から</button></div>
+<footer class="footer">自動保存 · 離席報酬は最大8時間分<br>セーブデータはこのブラウザ内に保存されます</footer>
+</main>
+<script src="./core.js"></script>
+<script>
+(() => {
+  'use strict';
+  const Core = window.AlveinCore;
+  const $ = id => document.getElementById(id);
+  const KEY = 'alvein-save-v2';
+  const canvas = $('battle');
+  const ctx = canvas.getContext('2d');
+  const now = Date.now();
+  let rawSave = null;
+  let currentSave = null;
+  let legacySave = null;
+  let loaded;
+  let storageReady = true;
+  let restoredLegacy = false;
+  let recoveryBackupFailed = false;
+  try {
+    currentSave = localStorage.getItem(KEY);
+    legacySave = localStorage.getItem('alvein-save-v1');
+    rawSave = currentSave !== null ? currentSave : legacySave;
+  } catch (_) { storageReady = false; }
+  loaded = Core.loadSave(rawSave, now);
+  function preserveCorruptSave(raw) {
+    const backupKey = KEY + '-backup';
+    try {
+      if (localStorage.getItem(backupKey) !== raw) localStorage.setItem(backupKey, raw);
+      return localStorage.getItem(backupKey) === raw;
+    } catch (_) { return false; }
+  }
+  if (loaded.status === 'corrupt' && currentSave !== null && legacySave !== null && storageReady) {
+    const fallback = Core.loadSave(legacySave, now);
+    if (fallback.status === 'unsupported') {
+      loaded = fallback;
+      rawSave = legacySave;
+    } else if (fallback.status === 'loaded' || fallback.status === 'migrated') {
+      if (!preserveCorruptSave(currentSave)) {
+        storageReady = false;
+        recoveryBackupFailed = true;
+      }
+      loaded = fallback;
+      rawSave = legacySave;
+      restoredLegacy = true;
+    }
+  }
+  const saveUnsupported = loaded.status === 'unsupported';
+  let state = loaded.state;
+  if (loaded.status === 'corrupt' && rawSave !== null && storageReady && !preserveCorruptSave(rawSave)) {
+    storageReady = false;
+    recoveryBackupFailed = true;
+  }
+  const offline = saveUnsupported ? { goldEarned: 0 } : Core.applyOfflineProgress(state, now);
+  let lastFrame = performance.now();
+  let lastStage = state.stage;
+
+  function fmt(value) { return Math.floor(value).toLocaleString('ja-JP'); }
+  function log(message) {
+    const line = '・' + message;
+    $('log').textContent = line + '\n' + $('log').textContent.split('\n').slice(0, 5).join('\n');
+  }
+  function persist() {
+    if (!storageReady || saveUnsupported) return false;
+    try { localStorage.setItem(KEY, Core.serializeState(state)); return true; }
+    catch (_) { storageReady = false; $('save').disabled = true; $('reset').disabled = true; log('端末の保存領域を利用できません。空き容量を確認してください。'); return false; }
+  }
+  function updateEnemyHud(enemy) {
+    const current = enemy || Core.ensureEnemy(state);
+    $('enemyHpText').textContent = 'HP ' + fmt(Math.ceil(state.enemyHp)) + ' / ' + fmt(current.maxHp);
+    $('enemyHpBar').style.width = Math.max(0, Math.min(100, state.enemyHp / current.maxHp * 100)) + '%';
+  }
+  function update() {
+    const enemy = Core.ensureEnemy(state);
+    const dps = Core.calculateDps(state);
+    const costs = Core.getCosts(state);
+    const infantryCapReached = state.infLv >= Core.MAX_INFANTRY_LEVEL;
+    const archerCapReached = state.arch >= Core.MAX_ARCHERS;
+    const trainingCapReached = state.training >= Core.MAX_TRAINING;
+    $('gold').textContent = fmt(state.gold);
+    $('honor').textContent = fmt(state.honor);
+    $('troops').textContent = fmt(1 + state.arch + (state.mage ? 1 : 0));
+    $('stage').textContent = '第' + state.stage + '区画';
+    $('zone').textContent = enemy.zone;
+    $('encounter').textContent = '討伐 ' + fmt(state.kills);
+    $('enemyName').textContent = enemy.name;
+    updateEnemyHud(enemy);
+    $('dps').textContent = '攻撃 ' + dps.toFixed(1) + ' / 秒';
+    $('infantry').textContent = 'Lv.' + state.infLv + ' · 1名';
+    $('archer').textContent = 'Lv.1 · ' + fmt(state.arch) + '名';
+    $('mage').textContent = state.mage ? '契約済み · 1名' : '未解放';
+    $('medals').textContent = '永続勲章 ' + fmt(state.medals) + '枚';
+    $('upInf').textContent = infantryCapReached ? '歩兵を強化 · 上限到達' : '歩兵を強化 · ' + fmt(costs.infantry) + ' G';
+    $('hireArch').textContent = archerCapReached ? '弓兵を募集 · 上限到達' : '弓兵を募集 · ' + fmt(costs.archer) + ' G';
+    $('hireMage').textContent = state.mage ? '契約済み' : '契約する · ' + fmt(costs.mage) + ' G';
+    $('train').textContent = trainingCapReached ? '全軍を鍛錬 · 上限到達' : '全軍を鍛錬 · ' + fmt(costs.training) + ' G';
+    $('upInf').disabled = saveUnsupported || infantryCapReached || state.gold < costs.infantry;
+    $('hireArch').disabled = saveUnsupported || archerCapReached || state.gold < costs.archer;
+    $('hireMage').disabled = saveUnsupported || state.gold < costs.mage || state.mage;
+    $('train').disabled = saveUnsupported || trainingCapReached || state.gold < costs.training;
+    $('rebirth').disabled = saveUnsupported || state.honor < 500 || state.medals >= Core.MAX_MEDALS;
+    $('save').disabled = saveUnsupported || !storageReady;
+    $('reset').disabled = saveUnsupported || !storageReady;
+  }
+  function buy(kind, message) {
+    const result = Core.purchase(state, kind);
+    if (!result.ok) {
+      if (result.reason === 'funds') log('金貨が足りない。あと ' + fmt(result.cost - state.gold) + ' G 必要だ。');
+      else if (result.reason === 'owned') log('星詠み術師はすでに契約済みだ。');
+      else if (result.reason === 'cap') log('保存上限に達しているため、これ以上強化できない。');
+      update();
+      return;
+    }
+    log(message);
+    update();
+    persist();
+  }
+
+  function pixel(x, y, w, h, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(Math.round(x), Math.round(y), w, h);
+  }
+  function drawKnight(x, y, tint) {
+    pixel(x + 6, y, 12, 9, '#e7c89b'); pixel(x + 4, y + 7, 16, 15, tint);
+    pixel(x + 6, y + 20, 5, 12, '#b9aa8d'); pixel(x + 14, y + 20, 5, 12, '#b9aa8d');
+    pixel(x + 1, y + 10, 6, 13, '#aebcbd'); pixel(x + 8, y - 2, 10, 4, '#d7d3c6');
+    pixel(x + 11, y + 11, 2, 5, '#d9bd79');
+  }
+  function drawArcher(x, y) {
+    pixel(x + 6, y, 11, 9, '#dfbd8d'); pixel(x + 5, y + 8, 14, 14, '#557b7a');
+    pixel(x + 7, y + 21, 4, 11, '#a99a7e'); pixel(x + 15, y + 21, 4, 11, '#a99a7e');
+    pixel(x + 19, y + 9, 2, 18, '#c59d60'); pixel(x + 21, y + 8, 2, 2, '#ead9ad');
+  }
+  function drawMage(x, y) {
+    pixel(x + 7, y + 4, 12, 10, '#e6c9a0'); pixel(x + 4, y + 12, 18, 20, '#8270a7');
+    pixel(x + 5, y + 2, 17, 5, '#c6b2dc'); pixel(x + 10, y - 5, 8, 8, '#a18bc1');
+    pixel(x + 24, y + 8, 4, 4, '#e8d18d'); pixel(x + 25, y + 5, 2, 3, '#fff1bd');
+  }
+  function drawEnemy(x, y, enemy, time) {
+    const pulse = Math.sin(time / 230) > 0 ? 1 : 0;
+    if (enemy.id === 'mist-wolf') {
+      pixel(x + 8, y + 13, 39, 20, enemy.color); pixel(x + 34, y + 5, 18, 18, enemy.color);
+      pixel(x + 39, y + 1, 5, 9, '#9a7778'); pixel(x + 50, y + 3, 5, 9, '#9a7778');
+      pixel(x + 43, y + 13, 4, 4, '#f2ce83'); pixel(x + 12, y + 29, 6, 12, '#473943');
+      pixel(x + 35, y + 29, 6, 12, '#473943'); pixel(x + 54, y + 18, 7, 5, '#d6b4a1');
+    } else if (enemy.id === 'ruin-sentinel') {
+      pixel(x + 12, y + 3, 39, 38, enemy.color); pixel(x + 18, y - 5, 10, 12, '#91a0a0');
+      pixel(x + 38, y - 5, 10, 12, '#91a0a0'); pixel(x + 21, y + 15, 6, 6, '#f0d18b');
+      pixel(x + 38, y + 15, 6, 6, '#f0d18b'); pixel(x + 5, y + 35, 12, 8, '#495965');
+      pixel(x + 46, y + 35, 12, 8, '#495965');
+    } else if (enemy.id === 'thorn-wisp') {
+      pixel(x + 22, y + 5, 25, 31, enemy.color); pixel(x + 15, y + 13, 10, 18, '#8eaf8a');
+      pixel(x + 44, y + 10, 10, 19, '#8eaf8a'); pixel(x + 29, y + 14, 5, 5, '#f5e7a7');
+      pixel(x + 39, y + 14, 5, 5, '#f5e7a7'); pixel(x + 32, y + 29, 9, 4, '#354d48');
+    } else if (enemy.id === 'ash-stag') {
+      pixel(x + 10, y + 13, 43, 24, enemy.color); pixel(x + 39, y + 2, 16, 18, enemy.color);
+      pixel(x + 42, y - 10, 3, 14, '#c9b28a'); pixel(x + 51, y - 9, 3, 14, '#c9b28a');
+      pixel(x + 17, y + 32, 5, 12, '#54483e'); pixel(x + 44, y + 32, 5, 12, '#54483e');
+      pixel(x + 49, y + 11, 4, 4, '#f1d08a');
+    } else {
+      pixel(x + 11, y + 6, 43, 36, enemy.color); pixel(x + 17, y - 5, 9, 15, '#a994c2');
+      pixel(x + 40, y - 5, 9, 15, '#a994c2'); pixel(x + 21, y + 17, 6, 6, '#f3d78f');
+      pixel(x + 40, y + 17, 6, 6, '#f3d78f'); pixel(x + 27, y + 32, 13, 4, '#3a3045');
+    }
+    if (pulse) pixel(x + 30, y - 13, 3, 3, '#f2d98e');
+  }
+  function draw(time) {
+    ctx.clearRect(0, 0, 640, 260);
+    const sky = ctx.createLinearGradient(0, 0, 0, 260);
+    sky.addColorStop(0, '#344c60'); sky.addColorStop(.62, '#263747'); sky.addColorStop(1, '#17242d');
+    ctx.fillStyle = sky; ctx.fillRect(0, 0, 640, 260);
+    for (let i = 0; i < 12; i++) {
+      const x = (i * 71 + 21) % 640; const y = 28 + (i * 37) % 85;
+      pixel(x, y, 2, 2, i % 3 ? '#b9b39a' : '#e6d6a6');
+    }
+    ctx.fillStyle = '#263c48'; ctx.beginPath(); ctx.moveTo(0, 160); ctx.lineTo(100, 84); ctx.lineTo(190, 157); ctx.lineTo(295, 76); ctx.lineTo(410, 160); ctx.lineTo(520, 92); ctx.lineTo(640, 158); ctx.closePath(); ctx.fill();
+    pixel(0, 174, 640, 86, '#26372f'); pixel(0, 205, 640, 55, '#354332');
+    for (let i = 0; i < 9; i++) {
+      const x = (i * 93 - (state.kills * 13 + time / 70) % 93 + 930) % 640;
+      pixel(x, 164, 34, 18, '#46513e'); pixel(x + 8, 153, 19, 13, '#5b6048');
+      pixel(x + 15, 146, 6, 9, '#6c674d');
+    }
+    pixel(570, 88, 5, 82, '#695b45'); pixel(552, 83, 42, 9, '#8a7552');
+    pixel(560, 66, 25, 18, '#8a7552'); pixel(566, 56, 13, 12, '#a68a5b');
+    const soldiers = 1 + Math.min(3, state.arch);
+    for (let i = 0; i < soldiers; i++) {
+      const x = 48 + i * 42;
+      if (i === 0) drawKnight(x, 171, '#8d6946'); else drawArcher(x, 171);
+    }
+    if (state.mage) drawMage(225, 171);
+    const enemy = Core.enemyForState(state);
+    drawEnemy(466, 165 + Math.sin(time / 330) * 2, enemy, time);
+    ctx.fillStyle = '#f0dfba'; ctx.font = 'bold 15px Georgia,serif'; ctx.fillText('ALVEIN FRONTIER', 18, 25);
+    ctx.fillStyle = '#d6c8a8'; ctx.font = '12px system-ui,sans-serif';
+    ctx.fillText('王国軍戦力  ' + Core.calculateDps(state).toFixed(1), 18, 44);
+  }
+
+  $('upInf').addEventListener('click', () => buy('infantry', '王国歩兵の練度が上がった。'));
+  $('hireArch').addEventListener('click', () => buy('archer', '森林弓兵が遠征部隊に加わった。'));
+  $('hireMage').addEventListener('click', () => buy('mage', '星詠み術師と契約した。'));
+  $('train').addEventListener('click', () => buy('training', '鍛錬場の成果で全軍の攻撃力が上がった。'));
+  $('rebirth').addEventListener('click', () => {
+    const result = Core.applyPrestige(state);
+    if (!result.ok) {
+      if (result.reason === 'cap') log('永続勲章の上限に達しているため、これ以上の遠征再編はできない。');
+      else log('遠征功績が足りない。功績500で再編できる。');
+      update();
+      return;
+    }
+    log('王国へ帰還。永続勲章 ' + result.gain + ' 枚を獲得。勲章は次の遠征にも引き継がれる。');
+    lastStage = state.stage;
+    update(); persist();
+  });
+  $('save').addEventListener('click', () => {
+    if (persist()) log('遠征記録を保存した。');
+  });
+  $('reset').addEventListener('click', () => {
+    if (saveUnsupported || !storageReady) return;
+    if (!window.confirm('このブラウザの遠征記録を削除して、最初から始めますか？')) return;
+    try { localStorage.removeItem(KEY); localStorage.removeItem('alvein-save-v1'); }
+    catch (_) { log('保存データを削除できませんでした。'); return; }
+    location.reload();
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (saveUnsupported) return;
+    if (document.hidden) {
+      state.lastSeen = Math.max(state.lastSeen, Date.now());
+      persist();
+    } else {
+      const reward = Core.applyOfflineProgress(state, Date.now());
+      if (reward.goldEarned > 0) log('離席中の報酬として ' + fmt(reward.goldEarned) + ' G を獲得。');
+      update(); persist();
+    }
+  });
+  window.addEventListener('pagehide', () => { if (saveUnsupported) return; state.lastSeen = Math.max(state.lastSeen, Date.now()); persist(); });
+  window.addEventListener('pageshow', event => {
+    if (saveUnsupported) return;
+    if (event.persisted) {
+      const reward = Core.applyOfflineProgress(state, Date.now());
+      if (reward.goldEarned > 0) log('帰還報酬 ' + fmt(reward.goldEarned) + ' G を獲得。');
+      update();
+    }
+  });
+
+  if (saveUnsupported) log('このセーブは新しいゲーム版の形式です。データを上書きせず保護しました。新しいゲーム版で開いてください。');
+  else if (restoredLegacy) log('現行セーブに異常を検出。旧セーブから進行を復元した。');
+  else if (loaded.status === 'migrated') log('旧セーブデータを新しい形式へ引き継いだ。');
+  if (recoveryBackupFailed) log('破損セーブの控えを保存・検証できないため、元データを上書きせず保存を停止した。');
+  else if (loaded.status === 'corrupt') log('セーブデータに異常を検出。安全な初期状態で開始し、旧データの控えを残した。');
+  if (!storageReady) log('ブラウザ保存領域が利用できないため、この起動中は保存されない。');
+  if (offline.goldEarned > 0 && loaded.status !== 'new') log('離席中の報酬として ' + fmt(offline.goldEarned) + ' G を獲得。');
+  update();
+  if (storageReady && !saveUnsupported) persist();
+
+  function tick(time) {
+    if (saveUnsupported) { draw(time); requestAnimationFrame(tick); return; }
+    const dt = Math.min(2, Math.max(0, (time - lastFrame) / 1000));
+    lastFrame = time;
+    const result = Core.advanceCombat(state, dt);
+    updateEnemyHud();
+    if (result.defeated > 0) {
+      const enemy = Core.enemyForState(state);
+      $('battleText').textContent = result.defeated + '体撃破。' + enemy.name + 'が戦線に現れた。';
+      if (state.stage > lastStage) {
+        log('第' + state.stage + '区画へ進軍。新たな敵影を確認！');
+        lastStage = state.stage;
+      }
+      update();
+    }
+    draw(time);
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+  setInterval(persist, 15000);
+})();
+</script>
+</body>
+</html>
