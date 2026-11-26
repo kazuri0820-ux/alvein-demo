@@ -36,12 +36,20 @@ function intents(r){
   const heroes=alive(r.heroes);
   r.enemies.forEach((e,i)=>{e.target=heroes.length?heroes[(r.turn+i-1)%heroes.length].id:null});
 }
+function dragonCharges(r,e){return e.art==='dragon'&&r.turn%3===2}
 function intent(r,e,predictBurn=true){
   const target=r.heroes.find(h=>h.id===e.target&&h.hp>0)||alive(r.heroes)[0];
   if(predictBurn&&e.burn>=e.hp&&e.hp>0)return {kind:'burn',value:e.burn};
   if(e.art==='guard'&&r.turn%3===2)return {kind:'guard',value:10};
-  const value=e.art==='dragon'?(r.turn%3===1?7:r.turn%3===2?19:10):e.atk;
-  return {kind:e.kind,value,target:target?.id,description:e.art==='dragon'?(r.turn%3===2?'蝕の咆哮':'星火'):'攻撃'};
+  if(dragonCharges(r,e)){
+    if(e.interruptedTurn===r.turn){
+      const counter=r.heroes.find(h=>h.id===e.counterTarget&&h.hp>0)||target;
+      return {kind:'single',value:8,target:counter?.id,description:'反撃'};
+    }
+    return {kind:'all',value:22,description:'蝕の咆哮',charge:true};
+  }
+  const value=e.art==='dragon'?(r.turn%3===1?7:10):e.atk;
+  return {kind:e.kind,value,target:target?.id,description:e.art==='dragon'?'星火':'攻撃'};
 }
 function damage(r,e,n){
   if(!e||e.hp<=0)return;
@@ -161,6 +169,14 @@ function play(s,id,index,target,report){
     case 'nova': hit(e,4); status(e,'burn',2); status(e,'mark',2); break;
     case 'pierce': hit(e,10); status(e,'break',2); break;
   }
+  if(c==='arrow'||c==='storm'){
+    const dragon=targets.find(p=>p&&p.hp>0&&dragonCharges(r,p)&&p.interruptedTurn!==r.turn
+      &&p.mark&&p.markBy&&p.markBy!==id);
+    if(dragon){
+      reason('印で咆哮を中断 · 全体22 ⇢ '+h.name+'に8',dragon.markBy);
+      dragon.mark=0;dragon.markBy=null;dragon.interruptedTurn=r.turn;dragon.counterTarget=id;
+    }
+  }
   if(ally&&!h.used&&h.talent===5&&['ward','oath','fortress','vow','bloom'].includes(c)){
     ally.block+=4;h.used=true;reason('献身 · 防御+4');
   }
@@ -195,6 +211,7 @@ function enemyHit(r,e,h,n){
     e.burn+=h.fireward;e.burnBy=h.firewardBy;h.fireward=0;note(r,'煉獄の城壁が反撃！');
   }
   note(r,e.name+' → '+h.name+' '+(n-block)+'ダメージ');
+  return block;
 }
 function end(s){
   const r=s.run;
@@ -209,8 +226,13 @@ function end(s){
     if(move.kind==='guard'){
       e.shield=move.value;
       note(r,e.name+'が防御'+move.value+'を張った');
-    }else if(e.kind==='all'){
-      alive(r.heroes).forEach(h=>enemyHit(r,e,h,move.value));
+    }else if(move.kind==='all'){
+      const blocked=alive(r.heroes).map(h=>({h,amount:enemyHit(r,e,h,move.value)}));
+      if(move.charge&&blocked.reduce((sum,b)=>sum+b.amount,0)>=20){
+        const defender=blocked.reduce((a,b)=>b.amount>a.amount?b:a);
+        e.break=Math.max(e.break,3);e.breakBy=defender.h.id;
+        note(r,'咆哮を合計20以上防御！ 竜の鎧に破甲2');
+      }
     }else enemyHit(r,e,r.heroes.find(h=>h.id===move.target),move.value);
     e.break=Math.max(0,e.break-1);e.mark=Math.max(0,e.mark-1);
   }
@@ -272,7 +294,8 @@ function valid(s){
     ||!r.enemies.every((e,i)=>e&&e.id==='e'+i&&typeof e.name==='string'
       &&count(e.max,150)&&e.max>0&&count(e.hp,e.max)&&count(e.atk,50)
       &&['single','all'].includes(e.kind)&&['wolf','guard','spirit','dragon'].includes(e.art)
-      &&['burn','break','mark','shield'].every(key=>count(e[key]))))return false;
+      &&['burn','break','mark','shield'].every(key=>count(e[key]))
+      &&(e.interruptedTurn===undefined||(count(e.interruptedTurn,r.turn)&&s.party.includes(e.counterTarget)))))return false;
   const loot=(a,max)=>Array.isArray(a)&&a.length<=max&&a.every(x=>x&&s.party.includes(x.id)&&known(x.card));
   if(!loot(r.permanent,3)||!loot(r.rewards,4))return false;
   return r.phase!=='battle'||(alive(r.heroes).length>0&&alive(r.enemies).length>0);
