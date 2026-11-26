@@ -154,9 +154,18 @@
     return enemy;
   }
 
-  function advanceCombat(state, elapsedSeconds) {
+  function tacticMultiplier(enemyId, tactic) {
+    const heavy = enemyId === 'ruin-sentinel' || enemyId === 'altar-guardian';
+    if (tactic === 'assault') return heavy ? 0.85 : 1.35;
+    if (tactic === 'precision') return heavy ? 1.45 : 0.85;
+    return 1;
+  }
+  function combatDps(state, tactic) {
+    return calculateDps(state) * tacticMultiplier(enemyForState(state).id, tactic);
+  }
+  function advanceCombat(state, elapsedSeconds, tactic) {
     let remaining = Math.min(60, Math.max(0, finite(elapsedSeconds, 0)));
-    const dps = calculateDps(state);
+    let dps = combatDps(state, tactic);
     const startStage = state.stage;
     let defeated = 0;
     // Preserve the former 250-defeat/60Hz work ceiling while making it time-based.
@@ -176,6 +185,7 @@
 
     while (remaining > 0 && defeated < maxDefeats) {
       const enemy = enemyForState(state);
+      dps = calculateDps(state) * tacticMultiplier(enemy.id, tactic);
       if (state.enemyHp <= 0 || state.enemyHp > enemy.maxHp) state.enemyHp = enemy.maxHp;
       const secondsToDefeat = state.enemyHp / dps;
       if (remaining + 1e-9 < secondsToDefeat) {
@@ -199,7 +209,7 @@
 
     // Preserve time left after the final allowed defeat as damage on the next enemy, not another kill.
     if (remaining > 0 && defeated >= maxDefeats) {
-      state.enemyHp = Math.max(Number.MIN_VALUE, state.enemyHp - dps * remaining);
+      state.enemyHp = Math.max(Number.MIN_VALUE, state.enemyHp - combatDps(state, tactic) * remaining);
     }
     // Carry at most one unused defeat slot; never bank minutes of idle capacity.
     state._combatDefeatBudget = Math.min(1, Math.max(0, defeatBudget - defeated));
@@ -282,6 +292,8 @@
     serializeState,
     getCosts,
     calculateDps,
+    combatDps,
+    tacticMultiplier,
     enemyForState,
     ensureEnemy,
     advanceCombat,

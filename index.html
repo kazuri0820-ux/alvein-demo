@@ -7,21 +7,24 @@
 <title>アルヴェイン遠征記</title>
 <style>
 :root{color-scheme:dark;--ink:#f4e8ca;--gold:#d7b66d;--line:#756344;--muted:#b8b09e;--panel:#202b37;--panel2:#293746}*{box-sizing:border-box}html{background:#111821}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -20%,#34465a 0,#17222e 48%,#101720 100%);color:var(--ink);font-family:ui-serif,Georgia,"Yu Mincho",serif}button{font:inherit;touch-action:manipulation}#app{width:min(100%,760px);min-height:100vh;margin:auto;padding:calc(12px + env(safe-area-inset-top)) 12px calc(24px + env(safe-area-inset-bottom));}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:5px 2px 12px;border-bottom:1px solid #8b744d}.brand{font-size:clamp(18px,5vw,22px);letter-spacing:.08em;color:#f5dfaa;text-shadow:0 2px 14px #d7b66d33}.subtitle,.version{font:11px/1.5 system-ui,sans-serif;color:var(--muted)}.version{text-align:right;white-space:nowrap}.resources{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:11px 0}.resource,.panel{min-width:0;background:linear-gradient(145deg,#2b3947,#1a2530);border:1px solid var(--line);border-radius:11px;box-shadow:inset 0 1px #ffffff0a,0 4px 12px #0002}.resource{padding:9px 8px}.resource span{display:block;color:var(--muted);font:11px system-ui,sans-serif;white-space:nowrap}.resource b{display:block;margin-top:3px;color:#f4d58e;font:700 clamp(16px,4.6vw,20px) system-ui,sans-serif;font-variant-numeric:tabular-nums}.scene{overflow:hidden;border:2px solid #8d7447;border-radius:13px;background:#182432;box-shadow:0 10px 26px #0006}.scenehead{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;background:linear-gradient(90deg,#344252,#222e39);font:12px system-ui,sans-serif}.scenehead strong{color:#f1d28b}.scenehead .zone{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.stage-tag{flex:none;color:#c8b98f}.canvas-wrap{position:relative;background:#1a2937}canvas{display:block;width:100%;height:auto;image-rendering:pixelated}.battlefoot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;background:#202b37;font:12px system-ui,sans-serif}.battlefoot span:first-child{min-width:0}.battlefoot span:last-child{flex:none;color:#dfc27e}.enemy-hud{padding:0 12px 12px;background:#202b37}.enemy-label{display:flex;justify-content:space-between;gap:8px;color:#d7c9ad;font:11px system-ui,sans-serif}.enemy-label strong{color:#f2d48f}.hp-track{height:8px;margin-top:5px;overflow:hidden;border:1px solid #101820;border-radius:99px;background:#0d141b}.hp-fill{height:100%;width:100%;background:linear-gradient(90deg,#a84748,#e18b66);transition:width .16s linear}.section{margin-top:14px}.section-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 2px 8px;color:#e9ca83;font-size:15px}.section-note{color:var(--muted);font:10px system-ui,sans-serif}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.unit,.command{padding:10px}.unit-top{display:flex;align-items:center;gap:8px;min-height:36px}.unit-icon{display:grid;place-items:center;flex:none;width:34px;height:34px;border:1px solid #8b744d;border-radius:9px;background:#1a2530;font-size:19px}.unit strong,.command strong{font-size:13px}.unit small{display:block;margin-top:3px;color:var(--muted);font:11px system-ui,sans-serif}.buy{width:100%;min-height:44px;margin-top:9px;border:1px solid #b18d50;border-radius:8px;background:linear-gradient(#665235,#3b3024);color:#ffedc6;font:700 12px system-ui,sans-serif;padding:8px}.buy:active,.action:active{filter:brightness(1.18);transform:translateY(1px)}button:focus-visible{outline:2px solid #f1d28b;outline-offset:2px}button:disabled{opacity:.42;filter:saturate(.55)}.command p{min-height:30px;margin:5px 0 8px;color:var(--muted);font:11px/1.45 system-ui,sans-serif}.action{width:100%;min-height:44px;border:1px solid #b18d50;border-radius:8px;background:linear-gradient(#5b4930,#352c22);color:#ffedc6;font:700 12px system-ui,sans-serif;padding:8px}.record{padding:11px}.record h2{margin:0 0 7px;color:#e9ca83;font-size:15px}.log{min-height:38px;max-height:96px;overflow:auto;color:#c9c0ad;font:11px/1.65 system-ui,sans-serif;white-space:pre-line}.tabs{display:flex;gap:8px;margin-top:12px}.tabs button{flex:1;min-height:44px;border:1px solid #776343;border-radius:8px;background:#25313c;color:#e7d8b8;font:12px system-ui,sans-serif}.footer{margin-top:13px;color:#8d897d;text-align:center;font:10px/1.6 system-ui,sans-serif}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(min-width:560px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.command-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:350px){#app{padding-left:8px;padding-right:8px}.resource{padding:8px 5px}.resource span{font-size:10px}.unit{padding:8px}.unit strong{font-size:12px}}
+/* Expedition journal */
+:root{--ink:#f6e8c8;--gold:#e7bc69;--line:#61523c;--muted:#bfb6a6}
+html{background:#121710}body{background:radial-gradient(ellipse at 50% 0%,#3d4230,#1d251e 38%,#101711 100%)}#app{max-width:620px;padding-bottom:30px}.top{border-bottom:1px solid #8b7549;padding:12px 2px 13px}.brand{font-size:21px;letter-spacing:.08em}.resource{background:linear-gradient(135deg,#37372b,#202820);border-radius:5px;border-color:#685c42}.resource b{color:#ffe0a0}.scene{border:1px solid #b29a64;border-radius:6px;box-shadow:0 10px 24px #0008}.scenehead{background:#282d23;border-bottom:1px solid #736544}.battlefoot,.enemy-hud{background:#232b24}.hp-fill{background:linear-gradient(90deg,#a94843,#e2a05a)}.panel{border-radius:6px;background:linear-gradient(150deg,#35372b,#222921);border-color:#64583e}.unit-icon{border-radius:5px;background:#222b23;border-color:#84724c}.buy,.action{border-radius:5px;background:linear-gradient(#7a6036,#493920);border-color:#b59150}.tactics{padding:10px 11px 11px;background:#202821;border-top:1px solid #61523c}.tactical-head{display:flex;justify-content:space-between;align-items:center;color:#eed3a0;font:700 12px system-ui,sans-serif}.tactical-head span{font-size:11px;color:#b9bfa0;font-weight:400}.tactical-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:8px}.tactical-grid button{min-height:48px;border:1px solid #635d49;background:#303a2f;color:#e8dec5;border-radius:5px;font:700 11px system-ui,sans-serif;padding:5px 2px}.tactical-grid button small{display:block;font-size:10px;font-weight:400;margin-top:3px;color:#c2c6aa}.tactical-grid button.active{border-color:#e4ba6e;background:#594c2d}.field-intel{display:flex;justify-content:space-between;gap:5px;padding:8px 11px;background:#272e24;border-top:1px solid #534f3d;color:#e4d7b9;font:11px system-ui,sans-serif}.field-intel b{color:#f0ce84}.gain{font:11px/1.5 system-ui,sans-serif;color:#b7d49e;min-height:16px;margin-top:6px}.progress{height:5px;background:#161d15;margin-top:6px;border-radius:2px;overflow:hidden}.progress i{display:block;height:100%;background:#d4ad63}
 </style>
 </head>
 <body>
 <main id="app">
-<header class="top"><div><div class="brand">✦ アルヴェイン遠征記</div><div class="subtitle">王国暦 108年 · 北方辺境遠征</div></div><div class="version">試作 0.2.12-dev<br>王国遠征軍</div></header>
+<header class="top"><div><div class="brand">✦ アルヴェイン遠征記</div><div class="subtitle">王国暦 108年 · 北方辺境遠征</div></div><div class="version">試作 0.3.0-tactics<br>王国遠征軍</div></header>
 <section class="resources" aria-label="所持資源"><div class="resource"><span>🪙 王国金貨</span><b id="gold">80</b></div><div class="resource"><span>⚔️ 遠征功績</span><b id="honor">0</b></div><div class="resource"><span>👥 遠征兵</span><b id="troops">1</b></div></section>
-<section class="scene" aria-label="戦場"><div class="scenehead"><span class="zone"><strong id="stage">第1区画</strong> · <span id="zone">霧の街道</span></span><span class="stage-tag" id="encounter">討伐 0</span></div><div class="canvas-wrap"><canvas id="battle" width="640" height="260" role="img" aria-label="王国軍と魔物が戦うドット絵の戦場"></canvas></div><div class="battlefoot"><span id="battleText" aria-live="polite">部隊が北方辺境へ進軍する。</span><span id="dps">戦力 1.4</span></div><div class="enemy-hud"><div class="enemy-label"><span>敵影：<strong id="enemyName">霧牙狼</strong></span><span id="enemyHpText">HP 26 / 26</span></div><div class="hp-track"><div class="hp-fill" id="enemyHpBar"></div></div></div></section>
+<section class="scene" aria-label="戦場"><div class="scenehead"><span class="zone"><strong id="stage">第1区画</strong> · <span id="zone">霧の街道</span></span><span class="stage-tag" id="encounter">討伐 0</span></div><div class="canvas-wrap"><canvas id="battle" width="640" height="260" role="img" aria-label="王国軍と魔物が戦うドット絵の戦場"></canvas></div><div class="battlefoot"><span id="battleText" aria-live="polite">部隊が北方辺境へ進軍する。</span><span id="dps">戦力 1.4</span></div><div class="enemy-hud"><div class="enemy-label"><span>敵影：<strong id="enemyName">霧牙狼</strong></span><span id="enemyHpText">HP 26 / 26</span></div><div class="hp-track"><div class="hp-fill" id="enemyHpBar"></div></div></div><div class="field-intel"><span>次の討伐 <b id="lootPreview"></b></span><span id="eta"></span></div><div class="tactics"><div class="tactical-head">戦術指令 <span id="tacticHint">敵に合わせて切替</span></div><div class="tactical-grid"><button id="tBalanced" class="active">均衡陣<small>安定 ×1.00</small></button><button id="tAssault">突撃陣<small>獣・霊に有利</small></button><button id="tPrecision">破甲陣<small>守護者に有利</small></button></div></div></section>
 <section class="section"><h2 class="section-title">遠征部隊 <span class="section-note">兵種を育てて戦線を押し上げよう</span></h2><div class="grid">
-<article class="panel unit"><div class="unit-top"><span class="unit-icon">🛡️</span><div><strong>王国歩兵</strong><small id="infantry">Lv.1 · 1名</small></div></div><button class="buy" id="upInf">歩兵を強化 · 35 G</button></article>
-<article class="panel unit"><div class="unit-top"><span class="unit-icon">🏹</span><div><strong>森林弓兵</strong><small id="archer">Lv.1 · 0名</small></div></div><button class="buy" id="hireArch">弓兵を募集 · 35 G</button></article>
-<article class="panel unit"><div class="unit-top"><span class="unit-icon">✨</span><div><strong>星詠み術師</strong><small id="mage">未解放</small></div></div><button class="buy" id="hireMage">契約する · 180 G</button></article>
+<article class="panel unit"><div class="unit-top"><span class="unit-icon">🛡️</span><div><strong>王国歩兵</strong><small id="infantry">Lv.1 · 1名</small></div></div><div class="gain" id="infGain"></div><button class="buy" id="upInf">歩兵を強化 · 35 G</button></article>
+<article class="panel unit"><div class="unit-top"><span class="unit-icon">🏹</span><div><strong>森林弓兵</strong><small id="archer">Lv.1 · 0名</small></div></div><div class="gain" id="archGain"></div><button class="buy" id="hireArch">弓兵を募集 · 35 G</button></article>
+<article class="panel unit"><div class="unit-top"><span class="unit-icon">✨</span><div><strong>星詠み術師</strong><small id="mage">未解放</small></div></div><div class="gain" id="mageGain"></div><button class="buy" id="hireMage">契約する · 180 G</button></article>
 </div></section>
 <section class="section"><h2 class="section-title">司令部 <span class="section-note" id="medals">永続勲章 0枚</span></h2><div class="grid command-grid">
-<article class="panel command"><strong>⚒️ 鍛錬場</strong><p>全兵種の攻撃力を15%上昇</p><button class="action" id="train">全軍を鍛錬 · 75 G</button></article>
-<article class="panel command"><strong>🏰 王国への帰還</strong><p>功績500ごとに永続勲章を獲得。勲章は攻撃力に加算</p><button class="action" id="rebirth">遠征を再編 · 功績 500</button></article>
+<article class="panel command"><strong>⚒️ 鍛錬場</strong><p>全兵種の攻撃力を15%上昇</p><div class="gain" id="trainGain"></div><button class="action" id="train">全軍を鍛錬 · 75 G</button></article>
+<article class="panel command"><strong>🏰 王国への帰還</strong><p>功績500ごとに永続勲章を獲得。勲章は攻撃力に加算</p><div class="gain" id="returnGain"></div><div class="progress"><i id="returnProgress"></i></div><button class="action" id="rebirth">遠征を再編 · 功績 500</button></article>
 </div></section>
 <section class="section panel record"><h2>遠征記録</h2><div class="log" id="log">王国の旗が北風にはためく。新たな遠征が始まった。</div></section>
 <div class="tabs"><button id="save">記録を保存</button><button id="reset">最初から</button></div>
@@ -81,6 +84,10 @@
   const offline = saveUnsupported ? { goldEarned: 0 } : Core.applyOfflineProgress(state, now);
   let lastFrame = performance.now();
   let lastStage = state.stage;
+  let tactic = 'balanced';
+  let lastRewardAt = -10000;
+  let rewardLabel = '';
+  let lastHitAt = -10000;
 
   function fmt(value) { return Math.floor(value).toLocaleString('ja-JP'); }
   function log(message) {
@@ -96,10 +103,11 @@
     const current = enemy || Core.ensureEnemy(state);
     $('enemyHpText').textContent = 'HP ' + fmt(Math.ceil(state.enemyHp)) + ' / ' + fmt(current.maxHp);
     $('enemyHpBar').style.width = Math.max(0, Math.min(100, state.enemyHp / current.maxHp * 100)) + '%';
+    $('eta').textContent = '残り 約' + Math.ceil(state.enemyHp/Core.combatDps(state,tactic)) + '秒';
   }
   function update() {
     const enemy = Core.ensureEnemy(state);
-    const dps = Core.calculateDps(state);
+    const dps = Core.combatDps(state, tactic);
     const costs = Core.getCosts(state);
     const infantryCapReached = state.infLv >= Core.MAX_INFANTRY_LEVEL;
     const archerCapReached = state.arch >= Core.MAX_ARCHERS;
@@ -113,6 +121,19 @@
     $('enemyName').textContent = enemy.name;
     updateEnemyHud(enemy);
     $('dps').textContent = '攻撃 ' + dps.toFixed(1) + ' / 秒';
+    $('lootPreview').textContent = '+' + fmt(enemy.goldReward) + 'G / +' + fmt(enemy.honorReward) + '功績';
+    const heavy = enemy.id === 'ruin-sentinel' || enemy.id === 'altar-guardian';
+    $('tacticHint').textContent = (heavy ? '破甲陣が有効' : '突撃陣が有効') + ' · ×' + Core.tacticMultiplier(enemy.id, tactic).toFixed(2);
+    for (const [id,value] of [['tBalanced','balanced'],['tAssault','assault'],['tPrecision','precision']]) {
+      $(id).className = value === tactic ? 'active' : '';
+      $(id).disabled = saveUnsupported;
+    }
+    for (const [id,change] of [['infGain',{infLv:state.infLv+1}],['archGain',{arch:state.arch+1}],['mageGain',{mage:true}],['trainGain',{training:state.training+1}]]) {
+      $(id).textContent = '攻撃 +' + (Core.combatDps({...state,...change},tactic)-dps).toFixed(1) + '/秒';
+    }
+    const gain = Math.min(Math.floor(state.honor/500),Core.MAX_MEDALS-state.medals);
+    $('returnGain').textContent = state.medals>=Core.MAX_MEDALS?'勲章上限':gain > 0 ? '帰還報酬：勲章 +' + fmt(gain) + '枚' : '次の勲章まで ' + fmt(500-state.honor%500) + ' 功績';
+    $('returnProgress').style.width = (gain > 0 ? 100 : state.honor%500/5) + '%';
     $('infantry').textContent = 'Lv.' + state.infLv + ' · 1名';
     $('archer').textContent = 'Lv.1 · ' + fmt(state.arch) + '名';
     $('mage').textContent = state.mage ? '契約済み · 1名' : '未解放';
@@ -194,14 +215,19 @@
   function draw(time) {
     ctx.clearRect(0, 0, 640, 260);
     const sky = ctx.createLinearGradient(0, 0, 0, 260);
-    sky.addColorStop(0, '#344c60'); sky.addColorStop(.62, '#263747'); sky.addColorStop(1, '#17242d');
+    const palette = [['#435c54','#76816b','#354a3c','#28392e'],['#666255','#9b8f73','#544f42','#3d3c31'],['#264b42','#536b55','#203e30','#26372b'],['#624d42','#a27e60','#584738','#40352a'],['#4c405f','#91809d','#51445d','#312b3e']][Math.floor((state.stage-1)/3)%5];
+    sky.addColorStop(0,palette[0]); sky.addColorStop(.62,palette[1]); sky.addColorStop(1,palette[3]);
     ctx.fillStyle = sky; ctx.fillRect(0, 0, 640, 260);
     for (let i = 0; i < 12; i++) {
       const x = (i * 71 + 21) % 640; const y = 28 + (i * 37) % 85;
       pixel(x, y, 2, 2, i % 3 ? '#b9b39a' : '#e6d6a6');
     }
-    ctx.fillStyle = '#263c48'; ctx.beginPath(); ctx.moveTo(0, 160); ctx.lineTo(100, 84); ctx.lineTo(190, 157); ctx.lineTo(295, 76); ctx.lineTo(410, 160); ctx.lineTo(520, 92); ctx.lineTo(640, 158); ctx.closePath(); ctx.fill();
-    pixel(0, 174, 640, 86, '#26372f'); pixel(0, 205, 640, 55, '#354332');
+    pixel(500,36,26,26,'#d6c69a'); pixel(504,32,18,34,'#d6c69a');
+    for(let i=0;i<14;i++){let x=i*52-20;let h=28+(i*19)%43;pixel(x,157-h,5,h+12,palette[2]);pixel(x-9,157-h,24,10,palette[2]);pixel(x-15,167-h,36,12,palette[2]);}
+    ctx.fillStyle = palette[2]; ctx.beginPath(); ctx.moveTo(0, 160); ctx.lineTo(100, 84); ctx.lineTo(190, 157); ctx.lineTo(295, 76); ctx.lineTo(410, 160); ctx.lineTo(520, 92); ctx.lineTo(640, 158); ctx.closePath(); ctx.fill();
+    pixel(0,174,640,86,palette[3]);pixel(0,202,640,35,'#776b50');pixel(0,206,640,27,'#8b7c5c');
+    for(let i=0;i<38;i++){let x=(i*71)%640;let y=208+(i*11)%24;pixel(x,y,5+i%8,2,'#5e5944');}
+    for(let i=0;i<15;i++){let x=i*47;pixel(x,245+(i%3)*4,18,3,palette[2]);pixel(x+7,240,3,7,'#656e4b');}
     for (let i = 0; i < 9; i++) {
       const x = (i * 93 - (state.kills * 13 + time / 70) % 93 + 930) % 640;
       pixel(x, 164, 34, 18, '#46513e'); pixel(x + 8, 153, 19, 13, '#5b6048');
@@ -211,17 +237,29 @@
     pixel(560, 66, 25, 18, '#8a7552'); pixel(566, 56, 13, 12, '#a68a5b');
     const soldiers = 1 + Math.min(3, state.arch);
     for (let i = 0; i < soldiers; i++) {
-      const x = 48 + i * 42;
-      if (i === 0) drawKnight(x, 171, '#8d6946'); else drawArcher(x, 171);
+      const x = 95 + i * 43 + (i===0 ? Math.max(0,1-(time-lastHitAt)/160)*15 : 0);
+      pixel(x-3,204,29,4,'#4d483a');
+      if (i === 0) { drawKnight(x,171,'#b58c54');pixel(x+22,180,24,3,'#e2d8b9');pixel(x+23,177,3,9,'#c5a36a'); }
+      else drawArcher(x,171+Math.sin(time/170+i));
     }
     if (state.mage) drawMage(225, 171);
     const enemy = Core.enemyForState(state);
-    drawEnemy(466, 165 + Math.sin(time / 330) * 2, enemy, time);
-    ctx.fillStyle = '#f0dfba'; ctx.font = 'bold 15px Georgia,serif'; ctx.fillText('ALVEIN FRONTIER', 18, 25);
+    pixel(461,205,67,4,'#4d483a');
+    drawEnemy(466+Math.max(0,1-(time-lastHitAt)/100)*5,165+Math.sin(time/330)*2,enemy,time);
+    const phase=(time-lastHitAt)/250;
+    if(phase>=0&&phase<1&&!saveUnsupported){
+      const x=145+phase*325;pixel(x,182,19,2,'#e3cc92');pixel(x+19,181,4,4,'#fff1bd');
+      if(phase>.8){pixel(480,175,3,14,'#fff1bd');pixel(474,181,15,3,'#e2b464');}
+    }
+    if(time-lastRewardAt<1200){ctx.fillStyle='#ffe1a0';ctx.font='bold 18px system-ui,sans-serif';ctx.fillText(rewardLabel,370,114-(time-lastRewardAt)/90);}
+    ctx.fillStyle = '#f0dfba'; ctx.font = 'bold 15px Georgia,serif'; ctx.fillText('ALVEIN  /  '+enemy.zone, 18, 25);
     ctx.fillStyle = '#d6c8a8'; ctx.font = '12px system-ui,sans-serif';
-    ctx.fillText('王国軍戦力  ' + Core.calculateDps(state).toFixed(1), 18, 44);
+    ctx.fillText('王国軍戦力  ' + Core.combatDps(state,tactic).toFixed(1), 18, 44);
   }
 
+  for (const [id,value] of [['tBalanced','balanced'],['tAssault','assault'],['tPrecision','precision']]) {
+    $(id).addEventListener('click', () => { if(saveUnsupported) return; tactic=value; update(); });
+  }
   $('upInf').addEventListener('click', () => buy('infantry', '王国歩兵の練度が上がった。'));
   $('hireArch').addEventListener('click', () => buy('archer', '森林弓兵が遠征部隊に加わった。'));
   $('hireMage').addEventListener('click', () => buy('mage', '星詠み術師と契約した。'));
@@ -284,9 +322,11 @@
     if (saveUnsupported) { draw(time); requestAnimationFrame(tick); return; }
     const dt = Math.min(2, Math.max(0, (time - lastFrame) / 1000));
     lastFrame = time;
-    const result = Core.advanceCombat(state, dt);
+    const result = Core.advanceCombat(state, dt, tactic);
+    if (time-lastHitAt>480 && dt>0) lastHitAt=time;
     updateEnemyHud();
     if (result.defeated > 0) {
+      lastRewardAt=time; rewardLabel='+'+fmt(result.goldEarned)+' G  /  +'+fmt(result.honorEarned)+' 功績';
       const enemy = Core.enemyForState(state);
       $('battleText').textContent = result.defeated + '体撃破。' + enemy.name + 'が戦線に現れた。';
       if (state.stage > lastStage) {
