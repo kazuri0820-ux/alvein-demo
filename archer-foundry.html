@@ -1,0 +1,70 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#212327"><title>弓兵の射場｜アルヴェイン</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#191b1d;color:#f2e8d4;font:16px system-ui,sans-serif}main{max-width:610px;margin:auto;padding:20px 14px 36px}header{display:flex;align-items:baseline;justify-content:space-between}h1{font:600 26px serif;margin:8px 0 16px}header a{color:#cbb998;font-size:14px}.stage{background:linear-gradient(#33363b 0%,#484643 76%,#393733 76%,#262727 78%);border:1px solid #5d554c;position:relative;text-align:center}.stage canvas{width:144px;height:180px;display:block;margin:8px auto 4px}canvas{image-rendering:pixelated}h2{font:bold 18px serif;margin:12px 0 3px}p{font-size:14px;color:#d9ceb9;margin:4px 0 12px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:12px 0}button{touch-action:manipulation;font:inherit;color:inherit;background:#333336;border:1px solid #5e5952;border-radius:3px;min-height:44px;cursor:pointer}.cards button{padding:4px;font-size:12px}.cards canvas{display:block;width:32px;height:40px;margin:2px auto}.cards button[aria-pressed=true]{border-color:#e5be79;background:#494036}.actions{display:flex;gap:8px}.actions button{flex:1}.fire{background:#694631;border-color:#a7784c}small{display:block;color:#b5aa98;margin-top:12px}
+</style><main><header><h1>弓兵の射場</h1><a href="./deck-destiny.html?studio">影絵工房へ</a></header><div class="stage"><canvas id="hero" width="32" height="40" aria-label="選択中の弓兵"></canvas></div><h2 id="name"></h2><p>下の6人は戦闘時の原寸です。選ぶと上で構えを確認できます。</p><div class="cards" id="cards"></div><div class="actions"><button class="fire" id="fire">弓を引いて放つ</button><button id="roll">次の6人を生成</button></div><small id="code"></small></main>
+<script>
+'use strict';
+// Bone lengths, joint positions and garment sections use the same logical pixel grid.
+const profiles=[
+ ['古参',10,7,7,6,4,4,5],['重装歩兵出身',13,10,7,7,2,5,4],
+ ['若い斥候',14,5,9,5,3,3,7],['山の狩人',8,8,8,7,5,3,8],
+ ['城門の射手',15,7,8,6,0,4,4],['伏兵',7,6,7,5,5,3,9]
+];
+const ink='#28252a',shadow='#3c3940',mid='#67676a',light='#a19e95',edge='#c1b8a6',skin='#c29979',skinHi='#e3bea0',boots='#514640';
+function random(seed){return ()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296}}
+function build(seed,type){
+ const r=random(seed),p=profiles[type],j=()=>Math.floor(r()*3)-1;
+ return {seed,type,legs:p[1]+j(),width:p[2]+j(),spine:p[3]+j(),arm:p[4],lean:p[5]+j(),head:p[6],stride:p[7]+j(),hair:Math.floor(r()*5),phase:r()*6.28};
+}
+function elbow(a,b,length,side){
+ const dx=b[0]-a[0],dy=b[1]-a[1],d=Math.hypot(dx,dy)||1;
+ const off=Math.sqrt(Math.max(0,length*length-d*d/4))*side;
+ return [(a[0]+b[0])/2-dy/d*off,(a[1]+b[1])/2+dx/d*off];
+}
+function paint(canvas,g,t,shot){
+ const ctx=canvas.getContext('2d');ctx.clearRect(0,0,32,40);
+ const dot=(x,y,c,w=1,h=1)=>{ctx.fillStyle=c;ctx.fillRect(Math.round(x),Math.round(y),w,h)};
+ function line(a,b,c,w=1){const n=Math.ceil(Math.max(Math.abs(a[0]-b[0]),Math.abs(a[1]-b[1])));for(let i=0;i<=n;i++){const f=n?i/n:0;dot(a[0]+(b[0]-a[0])*f-w/2+.5,a[1]+(b[1]-a[1])*f-w/2+.5,c,w,w)}}
+ function poly(points,c){for(let y=Math.max(0,Math.floor(Math.min(...points.map(p=>p[1]))));y<=Math.min(39,Math.ceil(Math.max(...points.map(p=>p[1]))));y++){const cross=[];for(let i=0;i<points.length;i++){const a=points[i],b=points[(i+1)%points.length],sy=y+.5;if((a[1]>sy)!==(b[1]>sy))cross.push(a[0]+(sy-a[1])*(b[0]-a[0])/(b[1]-a[1]))}cross.sort((a,b)=>a-b);for(let i=0;i+1<cross.length;i+=2){let x=Math.ceil(cross[i]-.5);dot(x,y,c,Math.max(0,Math.ceil(cross[i+1]-.5)-x),1)}}}
+ const draw=shot<0?0:Math.min(1,shot/.48,Math.max(0,(1-shot)/.27));
+ const released=shot>=.64;
+ const hip=[10,36-g.legs],bob=Math.sin(t*2.7+g.phase)>.45?1:0;
+ const sh=[hip[0]+g.lean,hip[1]-g.spine+bob],w=g.width/2;
+ function limb(a,b,c,thick){line(a,b,ink,thick+2);line(a,b,c,thick)}
+ for(const side of [-1,1]){
+   const foot=[10+side*g.stride,37],start=[hip[0]+side*2,hip[1]],knee=elbow(start,foot,g.legs*.68,-1);
+   limb(start,knee,side<0?shadow:mid,g.width>8?4:3);limb(knee,foot,boots,2);dot(foot[0]-1,37,ink,5,2);dot(foot[0],37,boots,4,1);
+ }
+ const hem=hip[1]+4;
+ poly([[sh[0]-w,sh[1]-1],[sh[0]+w,sh[1]],[hip[0]+w+1,hem],[hip[0]-w-2,hem+1]],ink);
+ poly([[sh[0]-w+1,sh[1]],[sh[0]+w-1,sh[1]+1],[hip[0]+w,hem-1],[hip[0]-w,hem]],mid);
+ line([sh[0]-w+1,sh[1]+2],[hip[0]-w,hem-1],shadow,2);line([hip[0]-w,hip[1]],[hip[0]+w-1,hip[1]-1],boots,2);
+ const hx=Math.round(sh[0]+1),hy=Math.round(sh[1]-6),hw=g.head+1;
+ dot(hx-hw+2,hy,ink,hw+2,6);dot(hx-hw+3,hy+1,skin,hw,4);dot(hx+2,hy+2,skinHi);dot(hx+1,hy+1,ink);
+ const hair=['#c6c0ad','#56423b','#353238','#846c56','#595452'][g.hair];
+ dot(hx-hw+2,hy-1,hair,hw+1,2);dot(hx-hw+2,hy,hair,2,3);
+ if(g.hair===0)dot(hx,hy+4,edge,2,2);if(g.hair===2)dot(hx-hw,hy+1,hair,3,4);
+ line([sh[0]-w,sh[1]],[sh[0]+2,sh[1]+2],light,2);
+ const hand=[sh[0]+g.arm+2+2*draw,sh[1]+4-5*draw],rear=[hand[0]-3-(released?1:5)*draw,hand[1]+1];
+ function arm(origin,grip,side,color){const bend=elbow(origin,grip,g.arm,side);limb(origin,bend,color,2);limb(bend,grip,color,2);dot(grip[0],grip[1],skinHi,2,2)}
+ arm([sh[0]+1,sh[1]+1],hand,1,shadow);
+ const top=[hand[0]-3,hand[1]-7],base=[hand[0]-3,hand[1]+7];
+ for(const tip of [top,base]){const curve=[hand[0]+1,(hand[1]+tip[1])/2];line(hand,curve,'#b48a60');line(curve,tip,'#d5b180');line(tip,rear,'#afa9a0')}
+ arm([sh[0]-2,sh[1]+1],rear,1,mid);
+ if(!released){line(rear,[hand[0]+5,rear[1]],edge);dot(hand[0]+5,rear[1],light)}
+ else if(shot<.82){let x=hand[0]+5+(shot-.64)*90;line([x-4,hand[1]],[x,hand[1]],edge)}
+}
+const el=id=>document.getElementById(id),params=new URLSearchParams(location.search);
+let batch=Number(params.get('seed')||8327)>>>0,selected=0,crew=[],start=-Infinity,buttons=[];
+function populate(){
+ const r=random(batch),order=[0,1,2,3,4,5];for(let i=5;i>0;i--){const j=Math.floor(r()*(i+1));[order[i],order[j]]=[order[j],order[i]]}
+ crew=order.map(type=>build(Math.floor(r()*4294967296),type));el('cards').replaceChildren();buttons=[];
+ crew.forEach((g,i)=>{const b=document.createElement('button'),c=document.createElement('canvas');c.width=32;c.height=40;b.append(c,profiles[g.type][0]);b.onclick=()=>choose(i);el('cards').append(b);buttons.push(b)});
+ choose(0);el('code').textContent='生成番号 '+batch;
+}
+function choose(i){selected=i;start=-Infinity;el('name').textContent=profiles[crew[i].type][0];buttons.forEach((b,j)=>b.setAttribute('aria-pressed',String(i===j)))}
+el('roll').onclick=()=>{batch=crypto.getRandomValues(new Uint32Array(1))[0];history.replaceState(null,'','?seed='+batch);populate()};
+el('fire').onclick=()=>{start=performance.now()};
+let last=-100;function frame(ms){if(ms-last>=62){last=ms;const t=(ms-start)/1100,s=t<=1?t:-1;crew.forEach((g,i)=>paint(buttons[i].firstChild,g,ms/1000,i===selected?s:-1));paint(el('hero'),crew[selected],ms/1000,s)}requestAnimationFrame(frame)}
+populate();requestAnimationFrame(frame);
+</script></html>
