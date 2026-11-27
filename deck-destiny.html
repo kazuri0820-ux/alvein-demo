@@ -624,7 +624,7 @@ License: GPL-3+
  On Debian systems, the complete text of the GNU General
  Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".
  -->
-<style>.catalog{padding:12px;background:#211e26;margin:12px 0;color:#f2e2cb}.catalog summary{cursor:pointer;padding:8px 0}.catalog select,.catalog button{font:inherit;min-height:44px}.gallery-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px;margin:12px 0}.gallery-grid canvas{width:100%;height:auto;image-rendering:pixelated;background:#393343}</style></head><body><main><header><h1>アルヴェイン 運命の手札</h1><small id="edition">試作 0.1.16</small><details class="theme-picker"><summary>配色</summary><div class="theme-options"><button type="button" data-theme-choice="dusk"><span>宵あかね</span><span class="swatches" aria-hidden="true"><i style="background:#302735"></i><i style="background:#655069"></i><i style="background:#986d7e"></i><i style="background:#d9988b"></i><i style="background:#f2be95"></i></span></button><button type="button" data-theme-choice="reed"><span>翡翠の水路</span><span class="swatches" aria-hidden="true"><i style="background:#203536"></i><i style="background:#325052"></i><i style="background:#517470"></i><i style="background:#81a597"></i><i style="background:#c4cf9f"></i></span></button><button type="button" data-theme-choice="ember"><span>残火の城</span><span class="swatches" aria-hidden="true"><i style="background:#33292a"></i><i style="background:#544044"></i><i style="background:#805451"></i><i style="background:#b37561"></i><i style="background:#efad77"></i></span></button></div></details><details class="theme-picker"><summary>書体</summary><div class="theme-options"><button type="button" data-font-choice="grid">ドット　破甲斬</button><button type="button" data-font-choice="sans">角ゴシック　破甲斬</button><button type="button" data-font-choice="serif">明朝　破甲斬</button></div></details></header><div id="notice" class="notice" role="status"></div><div id="view"></div></main><nav class="nav" id="nav" aria-label="王国メニュー"></nav><script src="./character-art.js?v=16"></script><script src="./pixel-engine.js"></script><script src="./deck-core.js?v=0.1.14"></script><script>
+<style>.catalog{padding:12px;background:#211e26;margin:12px 0;color:#f2e2cb}.catalog summary{cursor:pointer;padding:8px 0}.catalog select,.catalog button{font:inherit;min-height:44px}.gallery-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px;margin:12px 0}.gallery-grid canvas{width:100%;height:auto;image-rendering:pixelated;background:#393343}</style></head><body><main><header><h1>アルヴェイン 運命の手札</h1><small id="edition">試作 0.1.16</small><details class="theme-picker"><summary>配色</summary><div class="theme-options"><button type="button" data-theme-choice="dusk"><span>宵あかね</span><span class="swatches" aria-hidden="true"><i style="background:#302735"></i><i style="background:#655069"></i><i style="background:#986d7e"></i><i style="background:#d9988b"></i><i style="background:#f2be95"></i></span></button><button type="button" data-theme-choice="reed"><span>翡翠の水路</span><span class="swatches" aria-hidden="true"><i style="background:#203536"></i><i style="background:#325052"></i><i style="background:#517470"></i><i style="background:#81a597"></i><i style="background:#c4cf9f"></i></span></button><button type="button" data-theme-choice="ember"><span>残火の城</span><span class="swatches" aria-hidden="true"><i style="background:#33292a"></i><i style="background:#544044"></i><i style="background:#805451"></i><i style="background:#b37561"></i><i style="background:#efad77"></i></span></button></div></details><details class="theme-picker"><summary>書体</summary><div class="theme-options"><button type="button" data-font-choice="grid">ドット　破甲斬</button><button type="button" data-font-choice="sans">角ゴシック　破甲斬</button><button type="button" data-font-choice="serif">明朝　破甲斬</button></div></details></header><div id="notice" class="notice" role="status"></div><div id="view"></div></main><nav class="nav" id="nav" aria-label="王国メニュー"></nav><script src="./archer-parts.js?v=1"></script><script src="./character-art.js?v=16"></script><script src="./pixel-engine.js"></script><script src="./deck-core.js?v=0.1.14"></script><script>
 'use strict';
 const E=AlveinDeck,P=window.AlveinPixelEngine,$=id=>document.getElementById(id);
 const query=new URLSearchParams(location.search);
@@ -1091,10 +1091,14 @@ if(mioDemo){
  selector.onchange=()=>{mioStyle=Number(selector.value);drawArt()};
 }
 // Identity comes from immutable recruitment data, so old saves need no migration.
+function drawPerson(canvas,person){
+ if(person.role===2&&Number.isInteger(person.appearanceSeed))ArcherParts.draw(canvas,(person.appearanceSeed>>>0)%27);
+ else AlveinCharacterArt.render(canvas,person);
+}
 function drawArt(){
   paintGallery();
   const invited=document.getElementById('guest-art');
-  if(invited&&guest)AlveinCharacterArt.render(invited,guest);
+  if(invited&&guest)drawPerson(invited,guest);
   document.querySelectorAll('canvas[data-person]').forEach(c=>{
     const p=[...s.roster,...s.offers].find(p=>p.id===+c.dataset.person);
     if(!p||!P)return;
@@ -1103,7 +1107,7 @@ function drawArt(){
       c.getContext('2d').drawImage(pic,Math.floor((32-pic.width)/2),39-pic.height);
       return;
     }
-    AlveinCharacterArt.render(c,p);
+    drawPerson(c,p);
   });
   document.querySelectorAll('canvas[data-glyph]').forEach(drawGlyph);
   drawBattlefield();
@@ -1144,7 +1148,7 @@ document.querySelectorAll('header details').forEach(el=>el.addEventListener('tog
 }));
 let galleryRole=0,gallerySet=0;
 function paintGallery(){
- document.querySelectorAll('[data-gallery]').forEach((canvas,i)=>AlveinCharacterArt.render(canvas,{role:galleryRole,appearanceSeed:i+6*gallerySet}));
+ document.querySelectorAll('[data-gallery]').forEach((canvas,i)=>drawPerson(canvas,{role:galleryRole,appearanceSeed:i+6*gallerySet}));
 }
 function gallery(){
  return '<details class="catalog"><summary>同じ職の6人を見比べる</summary><label>職業 <select id="gallery-role">'+E.roles.map((r,i)=>'<option value="'+i+'">'+esc(r.name)+'</option>').join('')+'</select></label> <button type="button" id="gallery-parts">装いを替える</button><div class="gallery-grid">'+Array.from({length:6},()=>'<canvas data-gallery width="32" height="40"></canvas>').join('')+'</div></details>';
@@ -1154,7 +1158,7 @@ document.addEventListener('click',e=>{if(e.target.id==='gallery-parts'){galleryS
 function studioView(){
  galleryRole=0;gallerySet=0;
  const cards=s.offers.map((p,i)=>'<article>'+portrait(p)+'<h3>'+esc(p.name)+'</h3><p>'+E.roles[p.role].name+' · '+E.talents[p.talent].name+'</p><a href="'+studioUrl(batch,i)+'">試戦</a><br><a href="?recruits=1&amp;invite='+batch+'-'+i+'">本編に招く</a></article>').join('');
- return '<section class="studio"><h2>影絵工房</h2><p>候補を選ぶと、先頭に編成して一戦を試せます。</p><div class="lineup">'+cards+'</div><a class="roll" href="'+studioUrl(randomBatch())+'">次の3人を生成</a>'+gallery()+'<form><label>生成番号 <input name="studio" type="number" min="0" max="4294967295" step="1" inputmode="numeric" required value="'+batch+'"></label><button>呼び出す</button></form><a href="?recruits=1">本編の募集へ</a></section>';
+ return '<section class="studio"><h2>影絵工房</h2><a class="roll" href="./archer-maker.html">弓兵を仕立てる</a><p>候補を選ぶと、先頭に編成して一戦を試せます。</p><div class="lineup">'+cards+'</div><a class="roll" href="'+studioUrl(randomBatch())+'">次の3人を生成</a>'+gallery()+'<form><label>生成番号 <input name="studio" type="number" min="0" max="4294967295" step="1" inputmode="numeric" required value="'+batch+'"></label><button>呼び出す</button></form><a href="?recruits=1">本編の募集へ</a></section>';
 }
 const invitation=/^(\d{1,10})-([0-2])$/.exec(query.get('invite')||'');
 const guest=!studio&&!practice&&mode==='personal'&&invitation&&Number(invitation[1])<=4294967295
@@ -1258,4 +1262,5 @@ document.addEventListener('click',ev=>{
 });
 render();
 AlveinCharacterArt.ready(drawArt);
+ArcherParts.ready(drawArt);
 </script></body></html>
