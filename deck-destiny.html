@@ -129,7 +129,7 @@ summary{min-height:44px;display:flex;align-items:center;cursor:pointer}
 body[data-battle] main{background:#201b2d;overflow:hidden}
 body[data-battle] header{min-height:42px;border-color:#544255}
 body[data-battle] header h1{font:600 14px system-ui;color:#e2cdb7}
-.battle-scene{height:clamp(252px,43svh,370px);position:relative;padding:0;overflow:hidden;isolation:isolate;border:1px solid #675165;border-radius:6px;background-color:#251e36;background-image:linear-gradient(0deg,#201b2d 0%,transparent 24%),url('./deck-water.webp?v=0.1.11');background-size:100% 100%;background-position:center;image-rendering:pixelated}
+.battle-scene{height:clamp(252px,43svh,370px);position:relative;padding:0;overflow:hidden;isolation:isolate;border:1px solid #675165;border-radius:6px;background-color:#251e36;background-image:linear-gradient(0deg,#201b2d 0%,transparent 24%),url('./deck-water.webp?v=0.1.12');background-size:100% 100%;background-position:center;image-rendering:pixelated}
 .battle-scene>canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;pointer-events:none}
 .battle-scene .enemygrid{position:absolute;inset:auto 5px 5px;display:flex;justify-content:flex-end;align-items:flex-end}
 .battle-scene .enemy{width:min(44%,165px);background:#1e172ad9;border:1px solid #6c546d;padding:4px 6px;gap:1px;z-index:1}
@@ -161,14 +161,14 @@ body[data-battle] header h1{font:600 14px system-ui;color:#e2cdb7}
 .clip-announcement{position:absolute;top:10px;right:7px;font:700 13px/1.15 system-ui;color:#ffe7ba;background:#291c22dd;border:1px solid #ef9e69;padding:6px 8px;border-radius:4px;z-index:1;pointer-events:none}
 body[data-battle] details{margin-block:3px}
 @media(max-width:350px){.card .cost{width:18px;height:18px;line-height:16px}.card .art-row{gap:3px}.card .card-glyph{width:28px;height:28px}}
-.battle-scene[data-stage="1"]{background-image:linear-gradient(0deg,#201b2d 0%,#1a354a35 65%,#253d5b65),url('./deck-water.webp?v=0.1.11')}
-.battle-scene[data-stage="3"]{background-image:linear-gradient(0deg,#201b2d 0%,#44182935 65%,#28182b69),url('./deck-water.webp?v=0.1.11')}
+.battle-scene[data-stage="1"]{background-image:linear-gradient(0deg,#201b2d 0%,#1a354a35 65%,#253d5b65),url('./deck-water.webp?v=0.1.12')}
+.battle-scene[data-stage="3"]{background-image:linear-gradient(0deg,#201b2d 0%,#44182935 65%,#28182b69),url('./deck-water.webp?v=0.1.12')}
 body[data-battle] main{background:#1b1927}
 body[data-battle] header{min-height:34px}
 .encounter{padding:5px 0 6px}
-.battle-scene{height:clamp(245px,43svh,365px);border:0;box-shadow:0 0 0 1px #776274;background-image:linear-gradient(0deg,#1b1927,transparent 28%),url('./deck-water.webp?v=0.1.11')}
-.battle-scene[data-stage="1"]{background-image:linear-gradient(0deg,#1b1927,transparent 30%),url('./deck-road.webp?v=0.1.11')}
-.battle-scene[data-stage="3"]{background-image:linear-gradient(0deg,#1b1927,transparent 30%),url('./deck-altar.webp?v=0.1.11')}
+.battle-scene{height:clamp(245px,43svh,365px);border:0;box-shadow:0 0 0 1px #776274;background-image:linear-gradient(0deg,#1b1927,transparent 28%),url('./deck-water.webp?v=0.1.12')}
+.battle-scene[data-stage="1"]{background-image:linear-gradient(0deg,#1b1927,transparent 30%),url('./deck-road.webp?v=0.1.12')}
+.battle-scene[data-stage="3"]{background-image:linear-gradient(0deg,#1b1927,transparent 30%),url('./deck-altar.webp?v=0.1.12')}
 .unit-tap{position:absolute;top:49%;height:25%;width:clamp(44px,15%,76px);z-index:1;transform:translateX(-50%);background:transparent;border:1px solid transparent;border-radius:5px;padding:0;touch-action:manipulation}
 .unit-tap.foe{width:clamp(48px,19%,96px)}
 .unit-tap[aria-disabled="true"]{cursor:default}
@@ -296,7 +296,7 @@ header .theme-picker{padding:0;border:0;background:none}header .theme-picker sum
 html[data-face] :is(header h1,h2,h3,.card strong,.field-name,.btn.full,.round-footer button,.choice-option strong,.person b,.slot b),header .theme-options [data-font-choice]{font-family:var(--display);font-weight:var(--weight);letter-spacing:.02em}
 header .theme-options [data-font-choice][aria-pressed=true]{box-shadow:inset 2px 0 var(--p5)}
 header .theme-picker + .theme-picker{margin-left:6px}header{gap:4px;flex-wrap:wrap}header .theme-picker summary{min-width:44px}
-</style><!-- Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+.studio{padding:12px 2px}.lineup{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}.lineup article{text-align:center;padding:8px 2px;background:var(--p1);border-bottom:2px solid var(--p3)}.lineup canvas{display:block;margin:auto;width:min(100%,96px);height:auto;image-rendering:pixelated;background:var(--p3)}.lineup p{font-size:12px}.studio a,.studio button,.nav a{display:inline-flex;align-items:center;min-height:44px;color:var(--p6)}.studio .roll,.studio button{background:var(--p2);padding:0 12px;border:0;margin:8px 0}.studio input{max-width:9em;background:var(--p1);color:var(--p6);font-size:16px}.studio form{display:flex;gap:6px;align-items:center}</style><!-- Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: noto-cjk
 Upstream-Contact: https://github.com/notofonts/noto-cjk/issues
 Source: https://github.com/notofonts/noto-cjk
@@ -624,17 +624,28 @@ License: GPL-3+
  On Debian systems, the complete text of the GNU General
  Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".
  -->
-</head><body><main><header><h1>アルヴェイン 運命の手札</h1><small id="edition">試作 0.1.11</small><details class="theme-picker"><summary>配色</summary><div class="theme-options"><button type="button" data-theme-choice="dusk"><span>宵あかね</span><span class="swatches" aria-hidden="true"><i style="background:#302735"></i><i style="background:#655069"></i><i style="background:#986d7e"></i><i style="background:#d9988b"></i><i style="background:#f2be95"></i></span></button><button type="button" data-theme-choice="reed"><span>翡翠の水路</span><span class="swatches" aria-hidden="true"><i style="background:#203536"></i><i style="background:#325052"></i><i style="background:#517470"></i><i style="background:#81a597"></i><i style="background:#c4cf9f"></i></span></button><button type="button" data-theme-choice="ember"><span>残火の城</span><span class="swatches" aria-hidden="true"><i style="background:#33292a"></i><i style="background:#544044"></i><i style="background:#805451"></i><i style="background:#b37561"></i><i style="background:#efad77"></i></span></button></div></details><details class="theme-picker"><summary>書体</summary><div class="theme-options"><button type="button" data-font-choice="grid">ドット　破甲斬</button><button type="button" data-font-choice="sans">角ゴシック　破甲斬</button><button type="button" data-font-choice="serif">明朝　破甲斬</button></div></details></header><div id="notice" class="notice" role="status"></div><div id="view"></div></main><nav class="nav" id="nav" aria-label="王国メニュー"></nav><script src="./pixel-engine.js"></script><script src="./deck-core.js?v=0.1.11"></script><script>
+</head><body><main><header><h1>アルヴェイン 運命の手札</h1><small id="edition">試作 0.1.12</small><details class="theme-picker"><summary>配色</summary><div class="theme-options"><button type="button" data-theme-choice="dusk"><span>宵あかね</span><span class="swatches" aria-hidden="true"><i style="background:#302735"></i><i style="background:#655069"></i><i style="background:#986d7e"></i><i style="background:#d9988b"></i><i style="background:#f2be95"></i></span></button><button type="button" data-theme-choice="reed"><span>翡翠の水路</span><span class="swatches" aria-hidden="true"><i style="background:#203536"></i><i style="background:#325052"></i><i style="background:#517470"></i><i style="background:#81a597"></i><i style="background:#c4cf9f"></i></span></button><button type="button" data-theme-choice="ember"><span>残火の城</span><span class="swatches" aria-hidden="true"><i style="background:#33292a"></i><i style="background:#544044"></i><i style="background:#805451"></i><i style="background:#b37561"></i><i style="background:#efad77"></i></span></button></div></details><details class="theme-picker"><summary>書体</summary><div class="theme-options"><button type="button" data-font-choice="grid">ドット　破甲斬</button><button type="button" data-font-choice="sans">角ゴシック　破甲斬</button><button type="button" data-font-choice="serif">明朝　破甲斬</button></div></details></header><div id="notice" class="notice" role="status"></div><div id="view"></div></main><nav class="nav" id="nav" aria-label="王国メニュー"></nav><script src="./pixel-engine.js"></script><script src="./deck-core.js?v=0.1.12"></script><script>
 'use strict';
 const E=AlveinDeck,P=window.AlveinPixelEngine,$=id=>document.getElementById(id);
 const query=new URLSearchParams(location.search);
-const mioDemo=query.get('mio')==='1';
+const studio=query.has('studio');
+const mioDemo=!studio&&query.get('mio')==='1';
+function randomBatch(){return crypto.getRandomValues(new Uint32Array(1))[0]}
+const code=query.get('studio')||'';
+const batch=/^\d{1,10}$/.test(code)&&Number(code)<=4294967295?Number(code):studio?randomBatch():0;
+function studioUrl(number,pick){
+ const q=new URLSearchParams({studio:String(number)});
+ if(pick!==undefined)q.set('pick',String(pick));
+ return '?'+q;
+}
+if(studio&&String(batch)!==code)history.replaceState(null,'',studioUrl(batch));
+
 const practice=mioDemo||query.get('practice')==='1';
 const mode=!practice&&query.get('energy')==='shared'?'shared':'personal';
 const K=mioDemo?'alvein-mio-art-demo-v1':practice?'alvein-deck-destiny-practice-v1':mode==='shared'?'alvein-deck-destiny-shared-v1':'alvein-deck-destiny-v1';
 let s,raw=null,storage=true,notice='',tab='home',slot=0,active=0,card=-1,detail=null,learn=null,confirm='',pending=null,learnedHere=null;
 try{
-  raw=localStorage.getItem(K);
+  raw=studio?null:localStorage.getItem(K);
   if(raw!==null){
     s=JSON.parse(raw);
     if(!E.valid(s)){s=null;storage=false;notice='セーブを読み取れなかったため、一時プレイ中です。元のデータは保持されています。'}
@@ -643,13 +654,22 @@ try{
   storage=false;notice='保存を読み込めないため、一時プレイ中です。';
 }
 if(!s){
- s=E.init();
+ s=E.init(studio?batch:undefined);
  if(mioDemo){s.roster.find(p=>p.id===s.party[0]).name='ミオ';E.start(s,mode)}
+}
+if(studio){
+ storage=false;
+ const pick=query.get('pick');
+ if(/^[0-2]$/.test(pick||'')){
+   const recruit=s.offers[Number(pick)];
+   E.recruit(s,recruit.id);E.assign(s,0,recruit.id);E.start(s);
+ }else tab='studio';
+ $('edition').textContent='影絵工房';
 }
 if(s.run)tab='battle';
 else if(query.get('recruits')==='1')tab='roster';
 if(mode==='shared')$('edition').textContent='共有行動力・比較版';
-if(practice)$('edition').textContent='練習遠征 0.1.11';
+if(practice)$('edition').textContent='練習遠征 0.1.12';
 function save(){
   if(!storage)return;
   try{
@@ -671,7 +691,7 @@ addEventListener('storage',ev=>{
 const esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const b=(t,a,d=false,c='')=>'<button class="btn '+c+'" data-a="'+a+'" '+(d?'disabled':'')+'>'+t+'</button>',hud=a=>'<div class="hud">'+a.map(([k,v])=>'<div><small>'+k+'</small><b>'+v+'</b></div>').join('')+'</div>',bar=(h,m)=>'<div class="hp"><i style="width:'+Math.max(0,Math.min(100,h/m*100))+'%"></i></div>',portrait=p=>'<canvas data-person="'+p.id+'" aria-label="'+esc(p.name)+'"></canvas>',by=id=>s.roster.find(p=>p.id===id);
 function person(p,offer){let r=E.roles[p.role],t=E.talents[p.talent];return '<article class="person">'+portrait(p)+'<div><b>'+esc(p.name)+'</b> <small>'+r.name+'</small><p class="tag">'+t.name+' · '+t.desc+'</p><p class="stat">HP '+p.hp+' · 潜在 '+'◆'.repeat(p.potential)+' · '+esc(p.origin)+'</p><p class="stat">固有：'+E.cards[p.signature][0]+'</p></div><div>'+b(offer?'採用1':'配置',offer?'recruit:'+p.id:'assign:'+p.id,!!s.run||(offer?s.coins<1||s.roster.length>=40:s.party[slot]===p.id),'alt')+(!offer?b('デッキ','detail:'+p.id,false,'alt'):'')+'</div></article>'}
-function roster(){let h='<div class="guild-banner"><h2>遠征隊の編成</h2></div>'+hud([['募集令',s.coins],['所属',s.roster.length],['帰還',s.runs]])+'<div class="panel"><h3>遠征編成</h3><p class="muted">枠を選び、所属人物の「配置」を押す。</p><div class="three">'+s.party.map((id,i)=>{let p=by(id);return b(portrait(p)+esc(p.name)+'<br><small>'+E.roles[p.role].name+'</small>','slot:'+i,false,'slot '+(i===slot?'sel':'alt'))}).join('')+'</div></div>';
+function roster(){let h='<div class="guild-banner"><h2>遠征隊の編成</h2></div><a class="experiment" href="?studio">影絵工房を開く</a>'+hud([['募集令',s.coins],['所属',s.roster.length],['帰還',s.runs]])+'<div class="panel"><h3>遠征編成</h3><p class="muted">枠を選び、所属人物の「配置」を押す。</p><div class="three">'+s.party.map((id,i)=>{let p=by(id);return b(portrait(p)+esc(p.name)+'<br><small>'+E.roles[p.role].name+'</small>','slot:'+i,false,'slot '+(i===slot?'sel':'alt'))}).join('')+'</div></div>';
 if(detail!==null){let p=by(detail);if(p){h+='<div class="panel"><div class="row"><h3>'+esc(p.name)+' の独立デッキ</h3>'+b('閉じる','close',false,'alt')+'</div><p class="tag">'+E.talents[p.talent].desc+'</p><div class="deckmini">'+p.deck.map((c,i)=>learn?b(E.cards[c][0],'replace:'+i,!!s.run||i===p.deck.length-1,'alt'):'<span>'+E.cards[c][0]+(i===p.deck.length-1?' ★':'')+'</span>').join('')+'</div><h3>永続習得カード</h3><p class="stat">習得カードを選び、上の入れ替えるカードをタップ。固有カードは固定。</p><div class="deckmini">'+(p.learned.length?p.learned.map(c=>b(E.cards[c][0],'learn:'+c,!!s.run,learn===c?'sel':'alt')).join(''):'<small>まだ習得していない</small>')+'</div></div>'}}
 return h+'<div class="panel"><h3>所属人物</h3>'+s.roster.map(p=>person(p,false)).join('')+'</div><div class="panel"><div class="row"><h3>志願者</h3>'+b('探索1','scout',!!s.run||s.coins<1,'alt')+'</div><p class="muted">重複しない生成人物。才能と固有カードを比較しよう。</p>'+s.offers.map(p=>person(p,true)).join('')+'</div>'}
 function route(active,cleared=0){
@@ -712,7 +732,7 @@ function home(){
     }).join('')+'</div>'+
     '<details><summary>遠征の遊び方</summary><p>戦場の仲間をタップして手札を切り替えます。札を選び、表示された対象を押すと使えます。ターンを終えると敵が行動し、次の手札が届きます。</p><p>勝利するたびに札を拾えます。帰還時に1枚を持ち帰り、人物のデッキに装備できます。</p></details></div>'+
     hud([['募集令',s.coins],['所属',s.roster.length],['最深戦',s.record+'/3']])+
-    (practice?'<a class="experiment" href="?build=0.1.11">本編に戻る</a>':s.run||s.runs?'<a class="experiment" href="?build=0.1.11&amp;practice=1">別セーブで初回案内を試す</a>':'')+
+    (practice?'<a class="experiment" href="?build=0.1.12">本編に戻る</a>':s.run||s.runs?'<a class="experiment" href="?build=0.1.12&amp;practice=1">別セーブで初回案内を試す</a>':'')+
     '<details><summary>比較モード</summary><a class="experiment" href="'+(mode==='shared'?'?energy=personal':'?energy=shared')+'">'+(mode==='shared'?'通常の個別行動力で遊ぶ':'共有行動力の比較版を遊ぶ')+'</a></details>';
 }
 const names=['霧の街道','霧灯の水路','星落ちの祭壇'];
@@ -1074,7 +1094,7 @@ if(mioDemo){
 // Identity comes from immutable recruitment data, so old saves need no migration.
 function drawShadow(canvas, person){
   let seed=2166136261;
-  for(const letter of [person.id,person.name,person.origin,person.signature].join('|')){
+  for(const letter of (Number.isInteger(person.appearanceSeed)?'shadow2:'+person.appearanceSeed:[person.id,person.name,person.origin,person.signature].join('|'))){
     seed=Math.imul(seed^letter.charCodeAt(0),16777619)>>>0;
   }
   function choose(count){
@@ -1132,6 +1152,15 @@ function drawShadow(canvas, person){
   }else{
     box('#866747',25,10,1,20);box(metal,24,9,3,3);box(trim,24,6,3,3);box(light,25,6,1,2);
   }
+  if(Number.isInteger(person.appearanceSeed)){
+    const mantle=choose(4),crest=choose(4);
+    if(mantle===0)shape(shade,[[13,13],[16,14],[11,22],[3,28],[6,21]]);
+    if(mantle===1)shape(trim,[[14,14],[17,15],[10,20],[2,19],[8,17]]);
+    if(mantle===2)shape(dark,[[12,14],[17,16],[12,26],[8,33],[8,27],[5,30]]);
+    if(crest===0)shape(trim,[[16,6],[13,4],[10,0],[14,2],[18,5]]);
+    if(crest===1)shape(cloth,[[12,8],[8,8],[6,12],[10,11],[15,8]]);
+    if(crest===2){box(metal,18,5,4,1);box(light,20,4,1,1)}
+  }
 }
 
 function drawArt(){
@@ -1182,12 +1211,19 @@ faces.forEach(el=>el.addEventListener('click',()=>{
 document.querySelectorAll('header details').forEach(el=>el.addEventListener('toggle',()=>{
  if(el.open)document.querySelectorAll('header details').forEach(other=>{if(other!==el)other.open=false});
 }));
+function studioView(){
+ const cards=s.offers.map((p,i)=>'<article>'+portrait(p)+'<h3>'+esc(p.name)+'</h3><p>'+E.roles[p.role].name+' · '+E.talents[p.talent].name+'</p><a href="'+studioUrl(batch,i)+'">試戦</a></article>').join('');
+ return '<section class="studio"><h2>影絵工房</h2><p>候補を選ぶと、先頭に編成して一戦を試せます。</p><div class="lineup">'+cards+'</div><a class="roll" href="'+studioUrl(randomBatch())+'">次の3人を生成</a><form><label>生成番号 <input name="studio" type="number" min="0" max="4294967295" step="1" inputmode="numeric" required value="'+batch+'"></label><button>呼び出す</button></form><a href="?recruits=1">本編の募集へ</a></section>';
+}
 function render(){
   $('notice').textContent=notice;
   document.body.dataset.tab=tab;
   document.body.toggleAttribute('data-battle',tab==='battle'&&(s.run?.phase==='battle'||winTimer));
   $('nav').innerHTML=[['home','王国'],['roster','人物・デッキ'],['battle','遠征']].map(([k,v])=>b(v,'tab:'+k,false,k===tab?'active':'alt')).join('');
-  $('view').innerHTML=({home,roster,battle}[tab])();
+  $('view').innerHTML=({home,roster,battle,studio:studioView}[tab])();
+  if(studio){
+   $('nav').innerHTML='<a href="'+studioUrl(batch)+'">候補一覧へ</a>　<a href="?recruits=1">本編へ</a>';
+  }
   drawArt();
 }
 let lastAdvance=0;
