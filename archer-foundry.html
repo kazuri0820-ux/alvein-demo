@@ -28,24 +28,33 @@ function paint(canvas,g,t,shot){
  function poly(points,c){for(let y=Math.max(0,Math.floor(Math.min(...points.map(p=>p[1]))));y<=Math.min(39,Math.ceil(Math.max(...points.map(p=>p[1]))));y++){const cross=[];for(let i=0;i<points.length;i++){const a=points[i],b=points[(i+1)%points.length],sy=y+.5;if((a[1]>sy)!==(b[1]>sy))cross.push(a[0]+(sy-a[1])*(b[0]-a[0])/(b[1]-a[1]))}cross.sort((a,b)=>a-b);for(let i=0;i+1<cross.length;i+=2){let x=Math.ceil(cross[i]-.5);dot(x,y,c,Math.max(0,Math.ceil(cross[i+1]-.5)-x),1)}}}
  const draw=shot<0?0:Math.min(1,shot/.48,Math.max(0,(1-shot)/.27));
  const released=shot>=.64;
- const hip=[10,36-g.legs],bob=Math.sin(t*2.7+g.phase)>.45?1:0;
- const sh=[hip[0]+g.lean,hip[1]-g.spine+bob],w=g.width/2;
+ const hip=[12,35-g.legs+2*draw],bob=Math.sin(t*2.7+g.phase)>.45?1:0;
+ const sh=[hip[0]+g.lean*.45+draw,hip[1]-g.spine+bob],w=g.width/2;
  function limb(a,b,c,thick){line(a,b,ink,thick+2);line(a,b,c,thick)}
  for(const side of [-1,1]){
-   const foot=[10+side*g.stride,37],start=[hip[0]+side*2,hip[1]],knee=elbow(start,foot,g.legs*.68,-1);
+   const reach=side<0?-1-g.stride*.35:g.stride*.67;
+   const foot=[12+reach,37],start=[hip[0]+side,hip[1]];
+   const knee=[(start[0]+foot[0])/2+(side>0?1+draw:0),(start[1]+foot[1])/2];
    limb(start,knee,side<0?shadow:mid,g.width>8?4:3);limb(knee,foot,boots,2);dot(foot[0]-1,37,ink,5,2);dot(foot[0],37,boots,4,1);
  }
  const hem=hip[1]+4;
  poly([[sh[0]-w,sh[1]-1],[sh[0]+w,sh[1]],[hip[0]+w+1,hem],[hip[0]-w-2,hem+1]],ink);
  poly([[sh[0]-w+1,sh[1]],[sh[0]+w-1,sh[1]+1],[hip[0]+w,hem-1],[hip[0]-w,hem]],mid);
  line([sh[0]-w+1,sh[1]+2],[hip[0]-w,hem-1],shadow,2);line([hip[0]-w,hip[1]],[hip[0]+w-1,hip[1]-1],boots,2);
- const hx=Math.round(sh[0]+1),hy=Math.round(sh[1]-6),hw=g.head+1;
- dot(hx-hw+2,hy,ink,hw+2,6);dot(hx-hw+3,hy+1,skin,hw,4);dot(hx+2,hy+2,skinHi);dot(hx+1,hy+1,ink);
- const hair=['#c6c0ad','#56423b','#353238','#846c56','#595452'][g.hair];
- dot(hx-hw+2,hy-1,hair,hw+1,2);dot(hx-hw+2,hy,hair,2,3);
- if(g.hair===0)dot(hx,hy+4,edge,2,2);if(g.hair===2)dot(hx-hw,hy+1,hair,3,4);
- line([sh[0]-w,sh[1]],[sh[0]+2,sh[1]+2],light,2);
- const hand=[sh[0]+g.arm+2+2*draw,sh[1]+4-5*draw],rear=[hand[0]-3-(released?1:5)*draw,hand[1]+1];
+ // The back of the mantle hangs from the shoulder, leaving the bow arm clear.
+ const cloak='#463a38',fold='#574640',lit='#776056',bottom=Math.min(34,hem+3);
+ poly([[sh[0]-3,sh[1]-1],[sh[0]+2,sh[1]+1],[hip[0]+2,bottom-3],[hip[0]-1,bottom-1],[hip[0]-2,bottom-3],[hip[0]-5,bottom+1],[hip[0]-5,bottom-2],[hip[0]-8,bottom]],ink);
+ poly([[sh[0]-3,sh[1]],[sh[0]+1,sh[1]+1],[hip[0],bottom-3],[hip[0]-4,bottom-1],[hip[0]-3,bottom-4],[hip[0]-7,bottom-1]],cloak);
+ line([sh[0]-3,sh[1]+2],[hip[0]-5,bottom-4],fold,2);
+ line([sh[0]-3,sh[1]+1],[sh[0],sh[1]+2],lit);
+ const hx=Math.round(sh[0]+1),hy=Math.round(sh[1]-7),hw=g.head+1;
+ const hood=[['#e2cfb0','#b09b82'],['#d8c4a8','#aa947e'],['#d2c4af','#a79a86'],['#e7d6bc','#bba98f'],['#d9c9b0','#ad9985']][g.hair];
+ poly([[hx-hw-1,hy+3],[hx-hw+1,hy],[hx+1,hy-1],[hx+4,hy+1],[hx+3,hy+5],[hx,hy+8],[hx-hw-2,hy+7]],ink);
+ poly([[hx-hw,hy+2],[hx-hw+2,hy],[hx+1,hy],[hx+3,hy+1],[hx+1,hy+2],[hx-1,hy+4],[hx,hy+6],[hx-hw-1,hy+6]],hood[0]);
+ line([hx-hw,hy+4],[hx-hw-1,hy+6],hood[1],2);
+ dot(hx+1,hy+3,'#523c35',2,3);dot(hx+2,hy+4,skinHi);dot(hx+1,hy+5,skin);
+ line([sh[0]-2,sh[1]+1],[sh[0]+2,sh[1]+2],'#8d493c',2);
+ const hand=[sh[0]+g.arm+2+2*draw,sh[1]+7-8*draw],rear=[hand[0]-3-(released?1:5)*draw,hand[1]+1];
  function arm(origin,grip,side,color){const bend=elbow(origin,grip,g.arm,side);limb(origin,bend,color,2);limb(bend,grip,color,2);dot(grip[0],grip[1],skinHi,2,2)}
  arm([sh[0]+1,sh[1]+1],hand,1,shadow);
  const top=[hand[0]-3,hand[1]-7],base=[hand[0]-3,hand[1]+7];
