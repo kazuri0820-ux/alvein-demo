@@ -238,7 +238,7 @@ header h1{font-size:18px}header small{color:#c6b397}
 .card.selected{outline:2px solid #ffe291;outline-offset:1px;background:#f6e2ad}
 .person{border-bottom:1px solid #514c42}.person canvas,.slot canvas{image-rendering:pixelated;background:#303734;border-bottom:2px solid #a58b63}
 .choice-option{border-left:4px solid #987e65;padding:10px}.choice-option[aria-pressed=true]{background:#373b34;border-color:#dbba84}
-</style></head><body><main><header><h1>アルヴェイン 運命の手札</h1><small id="edition">試作 0.1.5</small></header><div id="notice" class="notice" role="status"></div><div id="view"></div></main><nav class="nav" id="nav" aria-label="王国メニュー"></nav><script src="./pixel-engine.js"></script><script src="./deck-core.js?v=0.1.5"></script><script>
+.btn.hero,.btn.slot,.nav .btn.active{color:#f7e8ce}.btn.hero .hp i{background:#92b99e}</style></head><body><main><header><h1>アルヴェイン 運命の手札</h1><small id="edition">試作 0.1.5</small></header><div id="notice" class="notice" role="status"></div><div id="view"></div></main><nav class="nav" id="nav" aria-label="王国メニュー"></nav><script src="./pixel-engine.js"></script><script src="./deck-core.js?v=0.1.5"></script><script>
 'use strict';
 const E=AlveinDeck,P=window.AlveinPixelEngine,$=id=>document.getElementById(id);
 const query=new URLSearchParams(location.search);
@@ -548,6 +548,12 @@ function drawBattlefield(){
   const r=s.run;
   if(!canvas||!r)return;
   const c=canvas.getContext('2d');
+  const portraits=new Map(Array.from(document.querySelectorAll(".party-row canvas[data-person]"),el=>[Number(el.dataset.person),el]));
+  const drawActor=(hero,x,y)=>{
+    const art=portraits.get(hero.id);
+    if(art&&art.width&&P)c.drawImage(art,x-12,y-30,24,32);
+    else drawHeroSprite(c,hero.role,x,y,2);
+  };
   const ground=98, stageFx=sceneAction?.run===r?sceneAction:null;
   c.imageSmoothingEnabled=false;
   const px=(x,y,w,h,color)=>{c.fillStyle=color;c.fillRect(Math.round(x),Math.round(y),w,h)};
@@ -574,9 +580,9 @@ function drawBattlefield(){
       c.save();
       c.translate(0,ground+9+ground*.42);
       c.scale(1,-.42);c.globalAlpha=.17;
-      drawHeroSprite(c,hero.role,x,ground,2);
+      drawActor(hero,x,ground);
       c.restore();
-      drawHeroSprite(c,hero.role,x,ground,2);
+      drawActor(hero,x,ground);
       if(hero.block||impact?.blocked)px(x-7,ground-30,14,1,'#81b9d6');
       if(impact){
         const source=foePosition(r,r.enemies.findIndex(e=>e.id===impact.actor));
