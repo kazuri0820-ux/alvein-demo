@@ -129,7 +129,7 @@ summary{min-height:44px;display:flex;align-items:center;cursor:pointer}
 body[data-battle] main{background:#201b2d;overflow:hidden}
 body[data-battle] header{min-height:42px;border-color:#544255}
 body[data-battle] header h1{font:600 14px system-ui;color:#e2cdb7}
-.battle-scene{height:clamp(252px,43svh,370px);position:relative;padding:0;overflow:hidden;isolation:isolate;border:1px solid #675165;border-radius:6px;background-color:#251e36;background-image:linear-gradient(0deg,#201b2d 0%,transparent 24%),url('./deck-water.webp?v=0.1.3');background-size:100% 100%;background-position:center;image-rendering:pixelated}
+.battle-scene{height:clamp(252px,43svh,370px);position:relative;padding:0;overflow:hidden;isolation:isolate;border:1px solid #675165;border-radius:6px;background-color:#251e36;background-image:linear-gradient(0deg,#201b2d 0%,transparent 24%),url('./deck-water.webp?v=0.1.4');background-size:100% 100%;background-position:center;image-rendering:pixelated}
 .battle-scene>canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;pointer-events:none}
 .battle-scene .enemygrid{position:absolute;inset:auto 5px 5px;display:flex;justify-content:flex-end;align-items:flex-end}
 .battle-scene .enemy{width:min(44%,165px);background:#1e172ad9;border:1px solid #6c546d;padding:4px 6px;gap:1px;z-index:1}
@@ -161,9 +161,56 @@ body[data-battle] header h1{font:600 14px system-ui;color:#e2cdb7}
 .clip-announcement{position:absolute;top:10px;right:7px;font:700 13px/1.15 system-ui;color:#ffe7ba;background:#291c22dd;border:1px solid #ef9e69;padding:6px 8px;border-radius:4px;z-index:1;pointer-events:none}
 body[data-battle] details{margin-block:3px}
 @media(max-width:350px){.card .cost{width:18px;height:18px;line-height:16px}.card .art-row{gap:3px}.card .card-glyph{width:28px;height:28px}}
-.battle-scene[data-stage="1"]{background-image:linear-gradient(0deg,#201b2d 0%,#1a354a35 65%,#253d5b65),url('./deck-water.webp?v=0.1.3')}
-.battle-scene[data-stage="3"]{background-image:linear-gradient(0deg,#201b2d 0%,#44182935 65%,#28182b69),url('./deck-water.webp?v=0.1.3')}
-</style></head><body><main><header><h1>アルヴェイン 運命の手札</h1><small id="edition">試作 0.1.3</small></header><div id="notice" class="notice" role="status"></div><div id="view"></div></main><nav class="nav" id="nav" aria-label="王国メニュー"></nav><script src="./pixel-engine.js"></script><script src="./deck-core.js?v=0.1.3"></script><script>
+.battle-scene[data-stage="1"]{background-image:linear-gradient(0deg,#201b2d 0%,#1a354a35 65%,#253d5b65),url('./deck-water.webp?v=0.1.4')}
+.battle-scene[data-stage="3"]{background-image:linear-gradient(0deg,#201b2d 0%,#44182935 65%,#28182b69),url('./deck-water.webp?v=0.1.4')}
+body[data-battle] main{background:#1b1927}
+body[data-battle] header{min-height:34px}
+.encounter{padding:5px 0 6px}
+.battle-scene{height:clamp(245px,43svh,365px);border:0;box-shadow:0 0 0 1px #776274;background-image:linear-gradient(0deg,#1b1927,transparent 28%),url('./deck-water.webp?v=0.1.4')}
+.battle-scene[data-stage="1"]{background-image:linear-gradient(0deg,#1b1927,transparent 30%),url('./deck-road.webp?v=0.1.4')}
+.battle-scene[data-stage="3"]{background-image:linear-gradient(0deg,#1b1927,transparent 30%),url('./deck-altar.webp?v=0.1.4')}
+.unit-tap{position:absolute;top:49%;height:25%;width:clamp(44px,15%,76px);z-index:1;transform:translateX(-50%);background:transparent;border:1px solid transparent;border-radius:5px;padding:0;touch-action:manipulation}
+.unit-tap.foe{width:clamp(48px,19%,96px)}
+.unit-tap[aria-disabled="true"]{cursor:default}
+.unit-tap.targetable{background:#f2c76512;border-color:#e5bd7e;border-style:dashed}
+.unit-tap.targetable::after{content:"";position:absolute;left:50%;top:-10px;width:7px;height:7px;background:#f6ca84;transform:translateX(-50%) rotate(45deg)}
+.unit-tap.targetable:focus-visible{outline-offset:2px}
+.unit-hp{position:absolute;left:4px;right:4px;bottom:-7px;height:6px;background:#261c2d;border:1px solid #dcae918f;border-radius:2px;overflow:hidden;pointer-events:none}
+.unit-hp i{position:absolute;top:0;bottom:0;left:0;background:#e78979}
+.unit-hp .hp-shadow{background:#f4d2a2}
+.unit-tap.ally .unit-hp i{background:#a7c19b}
+.unit-tap .delta{display:block;position:absolute;bottom:100%;left:50%;transform:translate(-50%,-3px);padding:3px 5px;color:#fff0cc;background:#2d2233;border:1px solid #96705e;font:700 13px/1.12 system-ui;border-radius:3px;white-space:nowrap}
+.delta.good{color:#baede4;border-color:#7babac}
+.foe-forecast{position:absolute;z-index:2;top:7px;right:5px;left:5px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;pointer-events:none}
+.foe-forecast>div{padding:5px 6px;background:#191a29d9;border:1px solid #7c5d68;border-radius:5px;justify-self:end;min-width:0;max-width:100%}
+.foe-forecast b,.foe-forecast span{display:block;font-size:12px;overflow-wrap:anywhere}
+.foe-forecast span{color:#ffc790;font-weight:700}
+.foe-forecast .charge{border-color:#eea359}
+.foe-forecast .charge span{color:#ffb87d}
+.foe-forecast small{font:600 11px system-ui;color:#f0ccb3;display:block}
+.scene-caption{position:absolute;left:7px;right:7px;bottom:7px;display:flex;gap:6px;justify-content:center;align-items:center;z-index:2;pointer-events:none;color:#ffe0ac}
+.scene-caption b{background:#261e31ed;border:1px solid #a27a60;border-radius:4px;padding:4px 7px;font-size:12px;text-align:center}
+.scene-caption .danger{color:#ffc08b}
+.scene-caption .pulse{color:#bfe6d2}
+.party-row{margin:7px 0 3px}
+.hero{padding:3px 5px}
+.hero .hero-title{height:25px}
+.hero .hero-title canvas{width:19px;height:26px}
+.hero .energy{font-size:12px}
+.hand-head{margin:3px 0;min-height:21px}
+.hand-head small{font-size:12px}
+.card .cost{width:19px;height:19px;line-height:17px}
+.card .art-row b{font-size:15px}
+.card .desc{display:none}
+.target-tray.in-scene{padding:5px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:3px;background:#292233;border-color:#725972}
+.target-tray.in-scene button{height:44px}
+.target-tray.in-scene small{font-size:12px}
+.target-tray.in-scene .plan{grid-column:1/-1;min-width:0;}
+.target-tray.in-scene .plan summary{min-height:44px;margin:0}
+.scene-response{margin:5px 0;padding:3px 6px;border-left:2px solid #947054;color:#ead4c3;font-size:12px}
+@media (max-width:350px){.battle-scene{height:clamp(230px,40svh,320px)}.scene-caption b{font-size:11px}.foe-forecast>div{padding:3px}.foe-forecast b,.foe-forecast span{font-size:11px}}
+@media screen and (max-width: 550px){body[data-battle] main{padding-inline:8px}}
+</style></head><body><main><header><h1>アルヴェイン 運命の手札</h1><small id="edition">試作 0.1.4</small></header><div id="notice" class="notice" role="status"></div><div id="view"></div></main><nav class="nav" id="nav" aria-label="王国メニュー"></nav><script src="./pixel-engine.js"></script><script src="./deck-core.js?v=0.1.4"></script><script>
 'use strict';
 const E=AlveinDeck,P=window.AlveinPixelEngine,$=id=>document.getElementById(id);
 const query=new URLSearchParams(location.search);
@@ -183,7 +230,7 @@ try{
 if(!s)s=E.init();
 if(s.run)tab='battle';
 if(mode==='shared')$('edition').textContent='共有行動力・比較版';
-if(practice)$('edition').textContent='練習遠征 0.1.3';
+if(practice)$('edition').textContent='練習遠征 0.1.4';
 function save(){
   if(!storage)return;
   try{
@@ -246,7 +293,7 @@ function home(){
     }).join('')+'</div>'+
     '<details><summary>遠征の遊び方</summary><p>仲間をタップして手札を切り替えます。札を選び、表示された対象を押すと使えます。ターンを終えると敵が行動し、次の手札が届きます。</p><p>勝利するたびに札を拾えます。帰還時に1枚を持ち帰り、人物のデッキに装備できます。</p></details></div>'+
     hud([['募集令',s.coins],['所属',s.roster.length],['最深戦',s.record+'/3']])+
-    (practice?'<a class="experiment" href="?build=0.1.3">本編に戻る</a>':s.run||s.runs?'<a class="experiment" href="?build=0.1.3&amp;practice=1">別セーブで初回案内を試す</a>':'')+
+    (practice?'<a class="experiment" href="?build=0.1.4">本編に戻る</a>':s.run||s.runs?'<a class="experiment" href="?build=0.1.4&amp;practice=1">別セーブで初回案内を試す</a>':'')+
     '<details><summary>比較モード</summary><a class="experiment" href="'+(mode==='shared'?'?energy=personal':'?energy=shared')+'">'+(mode==='shared'?'通常の個別行動力で遊ぶ':'共有行動力の比較版を遊ぶ')+'</a></details>';
 }
 const names=['霧の街道','霧灯の水路','星落ちの祭壇'];
@@ -289,6 +336,41 @@ function guide(r,lesson,id){
   if(r.guide&&!id)return '<div class="walkthrough"><strong>'+(r.link>=2?'連携成功。残った敵を倒そう。':'敵を全員倒すと勝利')+'</strong><span>仲間を押すと手札が切り替わります。行動を終えたら「敵のターンへ」。</span></div>';
   return '';
 }
+function healthPreview(unit,predicted,ally){
+  const percent=hp=>Math.max(0,Math.min(100,100*hp/unit.max));
+  const actual=percent(unit.hp), next=percent(unit.hp+(predicted?.hp||0));
+  if(unit.hp===0)return '';
+  const front=Math.min(actual,next), back=Math.max(actual,next);
+  return '<span class="unit-hp" aria-hidden="true"><i class="hp-shadow" style="width:'+back+'%"></i>'+
+    '<i style="width:'+front+'%;'+(ally?'background:#a7c19b':'')+'"></i></span>';
+}
+function deltaBadge(values){
+  if(!values)return '';
+  const parts=[values.hp&&(values.hp>0?'+':'−')+Math.abs(values.hp),values.shield<0?'防'+values.shield:'',
+    values.block>0?'防+'+values.block:'',values.break>0?'破甲':'',values.burn>0?'火'+values.burn:'',
+    values.mark>0?'印':'',values.burn<0?'爆発':'',values.mark<0?'中断':''].filter(Boolean);
+  return parts.length?'<span class="delta '+(values.hp>0||values.block>0?'good':'')+'" aria-hidden="true">'+parts.slice(0,2).join(' ')+'</span>':'';
+}
+function intentText(r,move){
+  const who=r.heroes.find(h=>h.id===move.target)?.name;
+  if(move.kind==='burn')return '火傷で撃破予定';
+  if(move.kind==='guard')return '防御 +'+move.value;
+  if(move.kind==='protect')return '仲間に防御 +'+move.value;
+  return (move.description==='攻撃'?'':move.description+' · ')+(move.kind==='all'?'全員':who||'味方')+' −'+move.value;
+}
+function targetInfo(s,r,target,type,hero,index,lesson){
+  if(!target.hp)return null;
+  const projection=type?E.preview(s,hero.id,card,target.id):null;
+  const group=typeof target.id==='string'?'enemies':'heroes';
+  const delta=projection?.[group].find(p=>p.id===target.id);
+  const details=projection?[...(delta?[shortDelta(delta)]:[]),...projection.reasons].filter(Boolean):[];
+  const pick=!!projection?'use:'+target.id:group==='heroes'?'hero:'+index:'';
+  const position=group==='heroes'?heroX[index]:foePosition(r,index);
+  const suggested=lesson&&(lesson.enemy.id===target.id&&hero.hand[card]===lesson.id&&projection||group==='heroes'&&!type&&lesson.step===index&&active!==index);
+  const label=esc(target.name)+'、HP '+target.hp+(details.length?'。使用すると '+esc(details.join('、')):'');
+  return '<button class="unit-tap '+(group==='heroes'?'ally ':'foe ')+(projection?'targetable ':'')+(suggested?'suggested':'')+'" style="left:'+position/192*100+'%" data-a="'+pick+'" aria-label="'+label+'" '+(pick?'':'aria-disabled="true"')+'>'+
+    healthPreview(target,delta,group==='heroes')+deltaBadge(delta)+'</button>';
+}
 function battle(){
   const r=s.run;
   if(!r)return '<div class="panel"><h2>出撃準備</h2>'+b('遠征に出る','start',false,'full')+'</div>';
@@ -298,26 +380,35 @@ function battle(){
   const lesson=lessonFor(r);
   const intents=r.enemies.filter(e=>e.hp).map(e=>E.intent(r,e));
   const targeted=p=>p.hp&&intents.some(m=>m.kind==='all'||m.kind==='single'&&m.target===p.id);
-  const targets=type==='enemy'?r.enemies:type==='ally'?r.heroes:type==='self'?[h]:[];
-  const previews=targets.filter(p=>p.hp).map(p=>[p,E.preview(s,h.id,card,p.id)]);
-  const enemies=r.enemies.map(e=>{
-    const m=E.intent(r,e), target=r.heroes.find(p=>p.id===m.target);
-    const forecast=!e.hp?'撃破':m.kind==='guard'?'防御 +'+m.value:m.kind==='burn'?'火傷で撃破予定':m.kind==='all'?(e.art==='dragon'?m.description+' · ':'')+'全員に '+m.value+' ダメージ':(m.description==='反撃'?'咆哮を中断 · ':'')+esc(target?.name||'')+' に '+m.value+' ダメージ';
-    const summary=[e.shield&&'防御 '+e.shield,e.break&&'破甲 '+e.break,e.burn&&'火傷 '+e.burn,e.mark&&'印 '+e.mark].filter(Boolean).join(' · ');
-    const rule=m.charge?'<span class="forecast-rule">印 → 仲間の速射・連鎖雷で中断<br>防御合計20で破甲</span>':'';
-    return '<button class="enemy '+(m.charge?'charging ':'')+(type==='enemy'&&e.hp?'targetable':'')+'" data-a="enemy:'+e.id+'" '+(!e.hp||type!=='enemy'?'aria-disabled="true"':'')+'><b>'+esc(e.name)+'</b>'+bar(e.hp,e.max)+'<small>HP '+e.hp+' / '+e.max+'</small><span class="intent">'+forecast+'</span>'+rule+'<span class="status">'+summary+'</span></button>';
+  const permits=(group)=>type===group?type:null;
+  const actors=r.heroes.map((p,i)=>targetInfo(s,r,p,permits('ally'),h,i,lesson)).join('');
+  const enemies=r.enemies.map((e,i)=>targetInfo(s,r,e,permits('enemy'),h,i,lesson)).join('');
+  const forecasts=r.enemies.filter(e=>e.hp).map(e=>{
+    const m=E.intent(r,e);
+    return '<div class="'+(m.charge?'charge':'')+'"><b>'+esc(e.name)+'</b><span>'+esc(intentText(r,m))+'</span>'+
+      (m.charge?'<small>印で中断 / 防御20で破甲</small>':'')+'</div>';
   }).join('');
-  const heroes=r.heroes.map((p,i)=>'<button class="hero '+(i===active?'sel ':'')+(targeted(p)?'is-target ':'')+(lesson&&i===lesson.step&&i!==active?'suggested':'')+'" data-a="hero:'+i+'" aria-pressed="'+(i===active)+'" '+(p.hp<=0?'disabled':'')+'><span class="hero-title">'+portrait(p)+'<b>'+esc(p.name)+'</b></span><span class="suggested-tag">'+E.roles[p.role].name+'</span>'+bar(p.hp,p.max)+'<small>HP '+p.hp+' · 防 '+p.block+'</small><small class="energy">'+(r.mode==='shared'?'':energyPips(p))+'手札 '+(p.hp?p.hand.length:0)+'</small></button>').join('');
-  const tray=c?'<div class="target-tray"><div class="target-title"><b>'+c[0]+' · '+(type==='enemy'?'敵を選ぶ':type==='ally'?'味方を選ぶ':'効果を確認')+'</b>'+b('取消','cancel',false,'alt')+'<small>'+c[4]+'</small></div><div class="previews '+(previews.length===3?'triple':'')+'">'+previews.map(([p,v])=>v?'<button class="preview '+(lesson&&id===lesson.id&&p.id===lesson.enemy.id?'suggested':'')+'" data-a="use:'+p.id+'"><b>'+esc(type==='self'?'使う':p.name)+'</b>'+previewLabel(v,type==='self'?null:p.id)+'</button>':'').join('')+'</div></div>':'';
+  const heroes=r.heroes.map((p,i)=>b(portrait(p)+'<span>'+esc(p.name)+'</span>'+bar(p.hp,p.max)+'<small class="energy">'+(r.mode==='shared'?'':energyPips(p))+'手札 '+(p.hp?p.hand.length:0)+'</small>','party:'+i,!p.hp,'hero '+(i===active?'sel ':'')+(targeted(p)?'is-target':''))).join('');
+  const choice=type==='enemy'?r.enemies:type==='ally'?r.heroes:[h];
+  const forecastsOnTap=c?choice.flatMap(p=>{
+    const v=E.preview(s,h.id,card,p.id);
+    if(!v)return [];
+    return [esc(p.name)+' '+previewLabel(v,p.id)];
+  }):[];
+  const tray=c?'<div class="target-tray in-scene"><div><b>'+c[0]+'</b><br><small>'+c[4]+'</small></div>'+
+    (type==='self'?b('使う','use:'+h.id,false,''):b('取消','cancel',false,'alt'))+
+    (forecastsOnTap.length?'<details class="plan"><summary>効果の内訳</summary><div class="log">'+forecastsOnTap.join('<br>')+'</div></details>':'')+
+    '</div>':'';
   const ready=r.heroes.filter(p=>p.hp&&p.hand.some(c=>E.affordable(p,c,r))).map(p=>esc(p.name));
   const total=r.mode==='shared'?r.energy:r.heroes.filter(p=>p.hp).reduce((n,p)=>n+p.energy,0);
-  const endHint=ready.length?'未使用 '+total+' · 行動可能 '+ready.join('・'):(total?'未使用行動力 '+total:'全員の行動が完了');
-  const endLabel=confirm==='end'?'残したまま進む':'敵のターンへ';
-  const feedback=r.feedback?'<div class="feedback '+(r.feedback.linked?'linked':'')+'" role="status">'+esc(r.feedback.text)+(r.feedback.reasons?.length?' ／ '+r.feedback.reasons.map(esc).join(' / '):'')+'</div>':'';
-  return '<div class="encounter"><h2>'+names[r.stage-1]+'</h2><small>戦闘 '+r.stage+'/3 · '+r.turn+'ターン</small></div>'+
+  const endHint=ready.length?'行動可能 '+ready.length+'人':total?'残り '+total+' 行動力':'行動完了';
+  const endLabel=confirm==='end'?'このまま進む':'敵のターンへ';
+  const noticeOnField=type==='enemy'?'戦場の敵をタップ':type==='ally'?'戦場の味方をタップ':type==='self'?'札の効果を確認':r.feedback?.linked?'連携 '+r.link:'';
+  const feedback=r.feedback?'<div class="scene-response" role="status">'+esc(r.feedback.text)+'</div>':'';
+  return '<div class="encounter"><h2>'+names[r.stage-1]+'</h2><small>'+r.stage+'/3戦 · '+r.turn+'ターン</small></div>'+
     '<div class="battle-scene" data-stage="'+r.stage+'"><canvas data-battlefield width="192" height="134" aria-hidden="true"></canvas>'+
-    (r.feedback?.linked?'<div class="clip-announcement" aria-hidden="true">連携 '+r.link+'</div>':'')+
-    '<div class="enemygrid">'+enemies+'</div></div>'+
+    '<div class="foe-forecast">'+forecasts+'</div>'+actors+enemies+
+    (noticeOnField?'<div class="scene-caption"><b>'+noticeOnField+'</b></div>':'')+'</div>'+
     guide(r,lesson,id)+'<div class="party-row" aria-label="人物切り替え">'+heroes+'</div>'+
     '<div class="hand-head"><h3>'+esc(h.name)+'の手札</h3><small>'+(r.mode==='shared'?'共有 ':'')+'行動力 '+E.energy(r,h)+' · 山 '+h.deck.length+' / 捨 '+h.discard.length+'</small></div>'+
     '<div class="hand">'+(h.hand.map((id,i)=>cardArt(h,id,i,lesson&&lesson.step===active&&lesson.id===id)).join('')||'<p class="muted">手札なし</p>')+'</div>'+tray+
@@ -368,8 +459,8 @@ const partyFrames=[
   [['....111.......','...12221......','...12231......','...12121..41..','...12551..434.','..145554..41..','..145551..41..','..155554..41..','..155554..41..','...44.44......','..11..11......'], '#373148','#ded1cc','#f0b68e','#a27da1','#bfa48b']
 ];
 const foeFrames=new Map();
-const heroX=[23,47,71];
-function foePosition(r,i){return r.stage===3?(i===0?132:170):(i===0?119:159)}
+const heroX=[18,47,76];
+function foePosition(r,i){return r.stage===3?(i===0?126:168):(i===0?125:166)}
 function drawHeroSprite(ctx,role,x,ground,scale=1){
   const [rows,...colors]=partyFrames[role];
   rows.forEach((row,y)=>Array.from(row).forEach((c,i)=>{
@@ -436,6 +527,7 @@ function drawBattlefield(){
     if(!canvas.isConnected)return;
     const t=stageFx?Math.max(0,(now-stageFx.at)/440):1;
     const moving=t<1&&!reducedMotion.matches;
+    const incoming=moving&&stageFx.incoming;
     c.clearRect(0,0,canvas.width,canvas.height);
     for(let i=0;i<6;i++){
       const x=(i*37+8)%190,y=49+(i*13)%79;
@@ -443,7 +535,8 @@ function drawBattlefield(){
       px(x,y,1,1,light);
     }
     r.heroes.forEach((hero,i)=>{
-      if(!hero.hp)return;
+      const impact=incoming?.find?.(a=>a.target===hero.id&&a.kind==='attack');
+      if(!hero.hp&&!impact)return;
       const acting=moving&&stageFx.actor===hero.id;
       const x=heroX[i]+(acting?Math.round(Math.sin(t*Math.PI)*8):0);
       if(i===active){
@@ -456,11 +549,22 @@ function drawBattlefield(){
       drawHeroSprite(c,hero.role,x,ground,2);
       c.restore();
       drawHeroSprite(c,hero.role,x,ground,2);
-      if(hero.block)px(x-7,ground-30,14,1,'#81b9d6');
+      if(hero.block||impact?.blocked)px(x-7,ground-30,14,1,'#81b9d6');
+      if(impact){
+        const source=foePosition(r,r.enemies.findIndex(e=>e.id===impact.actor));
+        const p=Math.min(1,t*1.7);
+        px(source+(x-source)*p,ground-14,4,2,'#f5a17c');
+        if(t>.35){
+          c.fillStyle=impact.blocked?'#a2daea':'#ffc1a3'; c.font='bold 8px monospace';c.textAlign='center';
+          c.fillText(impact.amount?'-'+impact.amount:'防御',x,ground-31-t*8);
+        }
+      }
     });
     r.enemies.forEach((foe,i)=>{
       const effect=moving&&stageFx.hits.find(hit=>hit.id===foe.id);
-      if(!foe.hp&&!effect)return;
+      const burn=incoming?.find?.(a=>a.target===foe.id&&a.kind==='burn');
+      const guard=incoming?.find?.(a=>a.target===foe.id&&a.kind==='guard');
+      if(!foe.hp&&!effect&&!burn)return;
       const x=foePosition(r,i);
       const dragon=foe.art==='dragon', w=dragon?61:36, h=dragon?35:25;
       const knock=effect?Math.round(Math.sin(t*Math.PI)*5):0;
@@ -473,10 +577,16 @@ function drawBattlefield(){
       c.restore();
       c.globalAlpha=1;
       if(foe.hp){
-        px(x-14,ground+2,28,3,'#291b30');
-        px(x-13,ground+3,Math.max(1,Math.round(26*foe.hp/foe.max)),1,'#e78378');
         if(foe.burn)px(x+12,ground-h+4,2,4,'#ffba73');
         if(foe.mark)px(x-3,ground-h-5,6,2,'#d0e49a');
+      }
+      if(burn){
+        for(let k=0;k<4;k++)px(x-6+k*4,ground-h/2-((t*20+k*3)%17),2,3,'#ff995e');
+        c.font='bold 8px monospace';c.fillStyle='#ffb575';c.textAlign='center';
+        c.fillText('-'+burn.amount,x,ground-h-3-t*8);
+      }
+      if(guard){
+        px(x-9,ground-h-3,18,1,'#89bfdd');px(x-10,ground-h-2,1,13,'#89bfdd');px(x+9,ground-h-2,1,13,'#89bfdd');
       }
       if(effect){
         const glyph=glyphByCard[stageFx.card][0];
@@ -506,6 +616,15 @@ function drawBattlefield(){
         }
       }
     });
+    if(moving&&stageFx.actor&&stageFx.hits.length&&['flame','blast','arrow','spark','storm'].includes(stageFx.card)){
+      const i=r.heroes.findIndex(h=>h.id===stageFx.actor);
+      const j=r.enemies.findIndex(e=>e.id===stageFx.hits[0].id);
+      const p=Math.min(1,t*2.9);
+      const destination=foePosition(r,j);
+      const tone=stageFx.card==='arrow'?'#ffe9a9':'#ffa264';
+      const x=heroX[i]+(destination-heroX[i])*p;
+      px(x-5,ground-17,5,1,tone);px(x,ground-18,3,3,tone);
+    }
     if(moving){
       for(const ward of stageFx.wards.filter(w=>w.block>0||w.hp>0)){
         const x=heroX[r.heroes.findIndex(h=>h.id===ward.id)];
@@ -567,7 +686,7 @@ document.addEventListener('click',ev=>{
   else if(a==='close'){detail=null;learn=null}
   else if(a==='learn')learn=i;
   else if(a==='replace'){changed=E.equip(s,detail,learn,n);if(changed){if(learnedHere?.id===detail&&learnedHere.card===learn)learnedHere=null;learn=null;notice='デッキの札を入れ替えました。'}}
-  else if(a==='hero'&&r?.phase==='battle'){active=n;card=-1}
+  else if((a==='hero'||a==='party')&&r?.phase==='battle'){active=n;card=-1}
   else if(a==='enemy')use(i);
   else if(a==='use')use(i.startsWith('e')?i:n);
   else if(a==='card'&&r?.phase==='battle')card=card===n?-1:n;
@@ -576,7 +695,16 @@ document.addEventListener('click',ev=>{
   else if(a==='withdraw-now'&&priorConfirm==='withdraw'){changed=E.withdraw(s);card=-1}
   else if(a==='end'||a==='end-now'){
     if(a==='end'&&r?.heroes.some(p=>p.hp&&p.hand.some(c=>E.affordable(p,c,r))))confirm='end';
-    else if(a==='end'||priorConfirm==='end'){changed=E.end(s);card=-1}
+    else if(a==='end'||priorConfirm==='end'){
+      const incoming=[];
+      changed=E.end(s,incoming);card=-1;
+      if(changed){
+        sceneAction={run:r,hits:[],wards:[],incoming,at:performance.now()};
+        if(r.phase==='reward'&&incoming.length&&!reducedMotion.matches){
+          winTimer=setTimeout(()=>{winTimer=0;render();window.scrollTo(0,0)},440);
+        }
+      }
+    }
   }else if(a==='reward'){changed=E.reward(s,n);active=0;card=-1;pending=null}
   else if(a==='return'){
     const selected=r?.permanent[n];
@@ -590,7 +718,7 @@ document.addEventListener('click',ev=>{
   const focus=[...$('view').querySelectorAll('button[data-a]')].find(btn=>btn.dataset.a===z.dataset.a&&!btn.disabled);
   focus?.focus({preventScroll:true});
   if(a==='pick'&&pending!==null)$('view').querySelector('[data-a="'+(s.run.phase==='reward'?'reward':'return')+':'+pending+'"]')?.scrollIntoView({block:'nearest'});
-  if(a==='card'&&card>=0)$('view').querySelector('.target-tray')?.scrollIntoView({block:'nearest'});
+  if(a==='card'&&card>=0&&E.targetType(r?.heroes[active]?.hand[card])==='self')$('view').querySelector('.target-tray')?.scrollIntoView({block:'nearest'});
   if((changed&&['start','reward','return','withdraw-now','end','end-now'].includes(a))||a==='learned-deck')window.scrollTo(0,0);
 });
 render();

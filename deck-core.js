@@ -41,6 +41,14 @@ function intent(r,e,predictBurn=true){
   const target=r.heroes.find(h=>h.id===e.target&&h.hp>0)||alive(r.heroes)[0];
   if(predictBurn&&e.burn>=e.hp&&e.hp>0)return {kind:'burn',value:e.burn};
   if(e.art==='guard'&&r.turn%3===2)return {kind:'guard',value:10};
+  if(e.art==='wolf'&&r.turn%3===2){
+    const weakest=alive(r.heroes).reduce((a,h)=>!a||h.hp/h.max<a.hp/a.max?h:a,null);
+    return {kind:'single',value:10,target:weakest?.id,description:'飛びかかり'};
+  }
+  if(e.art==='spirit'&&r.turn%3===1){
+    const partner=r.enemies.find(p=>p!==e&&p.hp>0);
+    if(partner)return {kind:'protect',value:8,target:partner.id,description:'灯守り'};
+  }
   if(dragonCharges(r,e)){
     if(e.interruptedTurn===r.turn){
       const counter=r.heroes.find(h=>h.id===e.counterTarget&&h.hp>0)||target;
@@ -213,27 +221,42 @@ function enemyHit(r,e,h,n){
   note(r,e.name+' → '+h.name+' '+(n-block)+'ダメージ');
   return block;
 }
-function end(s){
+function end(s,report){
   const r=s.run;
   if(!r||r.phase!=='battle')return false;
   r.feedback=null; r.guide=false;
+  const reportMove=(actor,kind,target,amount,blocked=0)=>report?.push({actor,kind,target,amount,blocked});
+  const attack=(e,h,value)=>{
+    if(!h?.hp)return null;
+    const before=h.hp;
+    const blocked=enemyHit(r,e,h,value);
+    reportMove(e.id,'attack',h.id,before-h.hp,blocked);
+    return {h,amount:blocked};
+  };
   for(const e of alive(r.enemies)){
     if(e.burn){
-      e.hp=Math.max(0,e.hp-e.burn);note(r,e.name+' 火傷 '+e.burn);e.burn--;
+      const before=e.hp;e.hp=Math.max(0,e.hp-e.burn);note(r,e.name+' 火傷 '+e.burn);e.burn--;
+      reportMove(e.id,'burn',e.id,before-e.hp);
     }
     if(e.hp<=0)continue;
     const move=intent(r,e,false);
     if(move.kind==='guard'){
       e.shield=move.value;
       note(r,e.name+'が防御'+move.value+'を張った');
+      reportMove(e.id,'guard',e.id,move.value);
+    }else if(move.kind==='protect'){
+      const partner=r.enemies.find(p=>p.id===move.target);
+      partner.shield=Math.max(partner.shield,move.value);
+      note(r,e.name+'が'+partner.name+'を守った');
+      reportMove(e.id,'guard',partner.id,move.value);
     }else if(move.kind==='all'){
-      const blocked=alive(r.heroes).map(h=>({h,amount:enemyHit(r,e,h,move.value)}));
+      const blocked=alive(r.heroes).map(h=>attack(e,h,move.value));
       if(move.charge&&blocked.reduce((sum,b)=>sum+b.amount,0)>=20){
         const defender=blocked.reduce((a,b)=>b.amount>a.amount?b:a);
         e.break=Math.max(e.break,3);e.breakBy=defender.h.id;
         note(r,'咆哮を合計20以上防御！ 竜の鎧に破甲2');
       }
-    }else enemyHit(r,e,r.heroes.find(h=>h.id===move.target),move.value);
+    }else attack(e,r.heroes.find(h=>h.id===move.target),move.value);
     e.break=Math.max(0,e.break-1);e.mark=Math.max(0,e.mark-1);
   }
   check(s);
