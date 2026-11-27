@@ -129,7 +129,7 @@ summary{min-height:44px;display:flex;align-items:center;cursor:pointer}
 body[data-battle] main{background:#201b2d;overflow:hidden}
 body[data-battle] header{min-height:42px;border-color:#544255}
 body[data-battle] header h1{font:600 14px system-ui;color:#e2cdb7}
-.battle-scene{height:clamp(252px,43svh,370px);position:relative;padding:0;overflow:hidden;isolation:isolate;border:1px solid #675165;border-radius:6px;background-color:#251e36;background-image:linear-gradient(0deg,#201b2d 0%,transparent 24%),url('./deck-water.webp?v=0.1.13');background-size:100% 100%;background-position:center;image-rendering:pixelated}
+.battle-scene{height:clamp(252px,43svh,370px);position:relative;padding:0;overflow:hidden;isolation:isolate;border:1px solid #675165;border-radius:6px;background-color:#251e36;background-image:linear-gradient(0deg,#201b2d 0%,transparent 24%),url('./deck-water.webp?v=0.1.14');background-size:100% 100%;background-position:center;image-rendering:pixelated}
 .battle-scene>canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;pointer-events:none}
 .battle-scene .enemygrid{position:absolute;inset:auto 5px 5px;display:flex;justify-content:flex-end;align-items:flex-end}
 .battle-scene .enemy{width:min(44%,165px);background:#1e172ad9;border:1px solid #6c546d;padding:4px 6px;gap:1px;z-index:1}
@@ -161,14 +161,14 @@ body[data-battle] header h1{font:600 14px system-ui;color:#e2cdb7}
 .clip-announcement{position:absolute;top:10px;right:7px;font:700 13px/1.15 system-ui;color:#ffe7ba;background:#291c22dd;border:1px solid #ef9e69;padding:6px 8px;border-radius:4px;z-index:1;pointer-events:none}
 body[data-battle] details{margin-block:3px}
 @media(max-width:350px){.card .cost{width:18px;height:18px;line-height:16px}.card .art-row{gap:3px}.card .card-glyph{width:28px;height:28px}}
-.battle-scene[data-stage="1"]{background-image:linear-gradient(0deg,#201b2d 0%,#1a354a35 65%,#253d5b65),url('./deck-water.webp?v=0.1.13')}
-.battle-scene[data-stage="3"]{background-image:linear-gradient(0deg,#201b2d 0%,#44182935 65%,#28182b69),url('./deck-water.webp?v=0.1.13')}
+.battle-scene[data-stage="1"]{background-image:linear-gradient(0deg,#201b2d 0%,#1a354a35 65%,#253d5b65),url('./deck-water.webp?v=0.1.14')}
+.battle-scene[data-stage="3"]{background-image:linear-gradient(0deg,#201b2d 0%,#44182935 65%,#28182b69),url('./deck-water.webp?v=0.1.14')}
 body[data-battle] main{background:#1b1927}
 body[data-battle] header{min-height:34px}
 .encounter{padding:5px 0 6px}
-.battle-scene{height:clamp(245px,43svh,365px);border:0;box-shadow:0 0 0 1px #776274;background-image:linear-gradient(0deg,#1b1927,transparent 28%),url('./deck-water.webp?v=0.1.13')}
-.battle-scene[data-stage="1"]{background-image:linear-gradient(0deg,#1b1927,transparent 30%),url('./deck-road.webp?v=0.1.13')}
-.battle-scene[data-stage="3"]{background-image:linear-gradient(0deg,#1b1927,transparent 30%),url('./deck-altar.webp?v=0.1.13')}
+.battle-scene{height:clamp(245px,43svh,365px);border:0;box-shadow:0 0 0 1px #776274;background-image:linear-gradient(0deg,#1b1927,transparent 28%),url('./deck-water.webp?v=0.1.14')}
+.battle-scene[data-stage="1"]{background-image:linear-gradient(0deg,#1b1927,transparent 30%),url('./deck-road.webp?v=0.1.14')}
+.battle-scene[data-stage="3"]{background-image:linear-gradient(0deg,#1b1927,transparent 30%),url('./deck-altar.webp?v=0.1.14')}
 .unit-tap{position:absolute;top:49%;height:25%;width:clamp(44px,15%,76px);z-index:1;transform:translateX(-50%);background:transparent;border:1px solid transparent;border-radius:5px;padding:0;touch-action:manipulation}
 .unit-tap.foe{width:clamp(48px,19%,96px)}
 .unit-tap[aria-disabled="true"]{cursor:default}
@@ -624,7 +624,7 @@ License: GPL-3+
  On Debian systems, the complete text of the GNU General
  Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".
  -->
-</head><body><main><header><h1>アルヴェイン 運命の手札</h1><small id="edition">試作 0.1.13</small><details class="theme-picker"><summary>配色</summary><div class="theme-options"><button type="button" data-theme-choice="dusk"><span>宵あかね</span><span class="swatches" aria-hidden="true"><i style="background:#302735"></i><i style="background:#655069"></i><i style="background:#986d7e"></i><i style="background:#d9988b"></i><i style="background:#f2be95"></i></span></button><button type="button" data-theme-choice="reed"><span>翡翠の水路</span><span class="swatches" aria-hidden="true"><i style="background:#203536"></i><i style="background:#325052"></i><i style="background:#517470"></i><i style="background:#81a597"></i><i style="background:#c4cf9f"></i></span></button><button type="button" data-theme-choice="ember"><span>残火の城</span><span class="swatches" aria-hidden="true"><i style="background:#33292a"></i><i style="background:#544044"></i><i style="background:#805451"></i><i style="background:#b37561"></i><i style="background:#efad77"></i></span></button></div></details><details class="theme-picker"><summary>書体</summary><div class="theme-options"><button type="button" data-font-choice="grid">ドット　破甲斬</button><button type="button" data-font-choice="sans">角ゴシック　破甲斬</button><button type="button" data-font-choice="serif">明朝　破甲斬</button></div></details></header><div id="notice" class="notice" role="status"></div><div id="view"></div></main><nav class="nav" id="nav" aria-label="王国メニュー"></nav><script src="./character-art.js"></script><script src="./pixel-engine.js"></script><script src="./deck-core.js?v=0.1.13"></script><script>
+</head><body><main><header><h1>アルヴェイン 運命の手札</h1><small id="edition">試作 0.1.14</small><details class="theme-picker"><summary>配色</summary><div class="theme-options"><button type="button" data-theme-choice="dusk"><span>宵あかね</span><span class="swatches" aria-hidden="true"><i style="background:#302735"></i><i style="background:#655069"></i><i style="background:#986d7e"></i><i style="background:#d9988b"></i><i style="background:#f2be95"></i></span></button><button type="button" data-theme-choice="reed"><span>翡翠の水路</span><span class="swatches" aria-hidden="true"><i style="background:#203536"></i><i style="background:#325052"></i><i style="background:#517470"></i><i style="background:#81a597"></i><i style="background:#c4cf9f"></i></span></button><button type="button" data-theme-choice="ember"><span>残火の城</span><span class="swatches" aria-hidden="true"><i style="background:#33292a"></i><i style="background:#544044"></i><i style="background:#805451"></i><i style="background:#b37561"></i><i style="background:#efad77"></i></span></button></div></details><details class="theme-picker"><summary>書体</summary><div class="theme-options"><button type="button" data-font-choice="grid">ドット　破甲斬</button><button type="button" data-font-choice="sans">角ゴシック　破甲斬</button><button type="button" data-font-choice="serif">明朝　破甲斬</button></div></details></header><div id="notice" class="notice" role="status"></div><div id="view"></div></main><nav class="nav" id="nav" aria-label="王国メニュー"></nav><script src="./character-art.js?v=14"></script><script src="./pixel-engine.js"></script><script src="./deck-core.js?v=0.1.14"></script><script>
 'use strict';
 const E=AlveinDeck,P=window.AlveinPixelEngine,$=id=>document.getElementById(id);
 const query=new URLSearchParams(location.search);
@@ -669,7 +669,7 @@ if(studio){
 if(s.run)tab='battle';
 else if(query.get('recruits')==='1')tab='roster';
 if(mode==='shared')$('edition').textContent='共有行動力・比較版';
-if(practice)$('edition').textContent='練習遠征 0.1.13';
+if(practice)$('edition').textContent='練習遠征 0.1.14';
 function save(){
   if(!storage)return;
   try{
@@ -732,7 +732,7 @@ function home(){
     }).join('')+'</div>'+
     '<details><summary>遠征の遊び方</summary><p>戦場の仲間をタップして手札を切り替えます。札を選び、表示された対象を押すと使えます。ターンを終えると敵が行動し、次の手札が届きます。</p><p>勝利するたびに札を拾えます。帰還時に1枚を持ち帰り、人物のデッキに装備できます。</p></details></div>'+
     hud([['募集令',s.coins],['所属',s.roster.length],['最深戦',s.record+'/3']])+
-    (practice?'<a class="experiment" href="?build=0.1.13">本編に戻る</a>':s.run||s.runs?'<a class="experiment" href="?build=0.1.13&amp;practice=1">別セーブで初回案内を試す</a>':'')+
+    (practice?'<a class="experiment" href="?build=0.1.14">本編に戻る</a>':s.run||s.runs?'<a class="experiment" href="?build=0.1.14&amp;practice=1">別セーブで初回案内を試す</a>':'')+
     '<details><summary>比較モード</summary><a class="experiment" href="'+(mode==='shared'?'?energy=personal':'?energy=shared')+'">'+(mode==='shared'?'通常の個別行動力で遊ぶ':'共有行動力の比較版を遊ぶ')+'</a></details>';
 }
 const names=['霧の街道','霧灯の水路','星落ちの祭壇'];
@@ -1092,6 +1092,8 @@ if(mioDemo){
 }
 // Identity comes from immutable recruitment data, so old saves need no migration.
 function drawArt(){
+  const invited=document.getElementById('guest-art');
+  if(invited&&guest)AlveinCharacterArt.render(invited,guest);
   document.querySelectorAll('canvas[data-person]').forEach(c=>{
     const p=[...s.roster,...s.offers].find(p=>p.id===+c.dataset.person);
     if(!p||!P)return;
@@ -1140,8 +1142,23 @@ document.querySelectorAll('header details').forEach(el=>el.addEventListener('tog
  if(el.open)document.querySelectorAll('header details').forEach(other=>{if(other!==el)other.open=false});
 }));
 function studioView(){
- const cards=s.offers.map((p,i)=>'<article>'+portrait(p)+'<h3>'+esc(p.name)+'</h3><p>'+E.roles[p.role].name+' · '+E.talents[p.talent].name+'</p><a href="'+studioUrl(batch,i)+'">試戦</a></article>').join('');
+ const cards=s.offers.map((p,i)=>'<article>'+portrait(p)+'<h3>'+esc(p.name)+'</h3><p>'+E.roles[p.role].name+' · '+E.talents[p.talent].name+'</p><a href="'+studioUrl(batch,i)+'">試戦</a><br><a href="?recruits=1&amp;invite='+batch+'-'+i+'">本編に招く</a></article>').join('');
  return '<section class="studio"><h2>影絵工房</h2><p>候補を選ぶと、先頭に編成して一戦を試せます。</p><div class="lineup">'+cards+'</div><a class="roll" href="'+studioUrl(randomBatch())+'">次の3人を生成</a><form><label>生成番号 <input name="studio" type="number" min="0" max="4294967295" step="1" inputmode="numeric" required value="'+batch+'"></label><button>呼び出す</button></form><a href="?recruits=1">本編の募集へ</a></section>';
+}
+const invitation=/^(\d{1,10})-([0-2])$/.exec(query.get('invite')||'');
+const guest=!studio&&!practice&&mode==='personal'&&invitation&&Number(invitation[1])<=4294967295
+ ? E.init(Number(invitation[1])).offers[Number(invitation[2])] : null;
+function guestStatus(){
+ if(!storage)return '保存を利用できません';
+ if(s.roster.some(p=>p.workshopId===invitation[0]||p.appearanceSeed===guest.appearanceSeed&&p.name===guest.name&&p.role===guest.role))return '所属済み';
+ if(s.run)return '帰還後に採用できます';
+ if(s.roster.length>=40)return '所属人数が上限です';
+ if(s.coins<1)return '募集令が必要です';
+ return '';
+}
+function invitePanel(){
+ const status=guestStatus();
+ return '<section class="panel"><h2>工房からの志願者</h2><canvas id="guest-art" style="width:64px;height:80px;image-rendering:pixelated"></canvas><p>'+esc(guest.name)+' · '+E.roles[guest.role].name+' · '+E.talents[guest.talent].name+'</p>'+b(status||'募集令1で採用して先頭に編成','invite',!!status,'full')+'</section>';
 }
 function render(){
   $('notice').textContent=notice;
@@ -1149,6 +1166,7 @@ function render(){
   document.body.toggleAttribute('data-battle',tab==='battle'&&(s.run?.phase==='battle'||winTimer));
   $('nav').innerHTML=[['home','王国'],['roster','人物・デッキ'],['battle','遠征']].map(([k,v])=>b(v,'tab:'+k,false,k===tab?'active':'alt')).join('');
   $('view').innerHTML=({home,roster,battle,studio:studioView}[tab])();
+  if(guest&&!studio&&(tab==='home'||tab==='roster'))$('view').insertAdjacentHTML('afterbegin',invitePanel());
   if(studio){
    $('nav').innerHTML='<a href="'+studioUrl(batch)+'">候補一覧へ</a>　<a href="?recruits=1">本編へ</a>';
   }
@@ -1180,6 +1198,11 @@ document.addEventListener('click',ev=>{
   else if(a==='pick')pending=pending===n?null:n;
   else if(a==='learned-deck'&&learnedHere){tab='roster';detail=learnedHere.id;learn=learnedHere.card}
   else if(a==='slot')slot=n;
+  else if(a==='invite'&&guest&&!guestStatus()){
+    const member={...guest,id:s.next++,workshopId:invitation[0]};
+    s.coins--;s.roster.push(member);E.assign(s,0,member.id);changed=true;
+    notice=member.name+'を採用し、先頭に編成しました。';tab='home';
+  }
   else if(a==='recruit')changed=E.recruit(s,n);
   else if(a==='scout')changed=E.scout(s);
   else if(a==='assign')changed=E.assign(s,slot,n);
