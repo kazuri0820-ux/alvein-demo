@@ -27,16 +27,37 @@ window.AlveinCharacterArt=(()=>{
      ctx.fillStyle=colors[tone-1];ctx.fillRect(x+dx,y+dy,1,1);
    }});
  }
+ // Outer silhouettes share a baseline. Draw pack behind the figure, then its shoulder strap in front.
+ const packs=[
+   ['    33','   3221','  32221',' 322221','3222211','122211 ','12211  ','121    ','11     '],
+   ['   11     ','  13311111','  13222221','  1322221 ','  132221  ','  1322221 ','  13111111','  131     ','  131     ','  131     ','  131     '],
+   ['    111   ','  132231  ',' 13222231 ','1323322231','1232222221','1222222321','1232222321',' 12222221 ','  122221  ','   1221   ','    11    '],
+   ['31     13','121   121','1321 121 ',' 1321321 ','  13221  ','  1221   ',' 12231   ','12321    ',' 111     '],
+   ['   1111  ','  133331 ',' 12222221','132332231','122222221','133333331','122222221','132222231','122222221',' 1333331 ','  11111  ']
+ ];
+ const colorsets=[['#314766','#78a8d5','#f4dba4'],['#673242','#ce6260','#ffe3b4'],['#265355','#69bdad','#e8e4ac'],['#4d3568','#aa83d9','#f6dcbb'],['#57472b','#d6aa4c','#fff0b5']];
+ const silhouetteSizes=[[28,33],[21,39],[32,27],[27,36],[23,32],[32,31]];
  function render(canvas,person){
    canvas.width=32;canvas.height=40;
    if(!atlas.naturalWidth)return;
    const role=person.role,seed=seedFor(person),row=seed%6;
    const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
-   ctx.drawImage(atlas,role*32,row*40,32,40,0,0,32,40);
-   const [hx,hy,sx,sy,bx,by]=anchors[role][row],colors=[ink,...trims[role]];
-   stamp(ctx,heads[Math.floor(seed/6)%3],hx-3,Math.max(0,hy-3),colors);
-   stamp(ctx,mantles[Math.floor(seed/18)%3],sx-2,sy,colors);
-   stamp(ctx,tools[Math.floor(seed/54)%5],bx,by,['#352c31','#aa8458','#f3dba0']);
+   const kit=Math.floor(seed/54)%5,cloth=Math.floor(seed/18)%3,crest=Math.floor(seed/6)%3;
+   const accent=colorsets[(kit+row+role)%5];
+   const [w,h]=silhouetteSizes[row],left=32-w,top=40-h;
+   const [hx,hy,sx,sy,bx,by]=anchors[role][row];
+   const X=x=>left+Math.round(x*w/32),Y=y=>top+Math.round(y*h/40);
+   const pack=packs[kit],scale=2;
+   const packX=Math.max(0,X(sx)-pack[0].length*scale+4);
+   const packY=Math.max(0,Y(sy)-[15,21,10,16,12][kit]);
+   ctx.save();ctx.translate(packX,packY);ctx.scale(scale,scale);
+   stamp(ctx,pack,0,0,accent);ctx.restore();
+   ctx.drawImage(atlas,role*32,row*40,32,40,left,top,w,h);
+   ctx.save();ctx.translate(Math.max(0,X(hx)-6),Math.max(0,Y(hy)-5));ctx.scale(2,2);
+   stamp(ctx,heads[crest],0,0,accent);ctx.restore();
+   ctx.save();ctx.translate(Math.max(0,X(sx)-4),Y(sy));ctx.scale(2,2);
+   stamp(ctx,mantles[cloth],0,0,accent);ctx.restore();
+   stamp(ctx,tools[kit],X(bx),Y(by),[ink,accent[1],accent[2]]);
  }
  return Object.freeze({render,ready:callback=>{if(atlas.complete&&atlas.naturalWidth)callback();else atlas.addEventListener('load',callback,{once:true})}});
 })();
