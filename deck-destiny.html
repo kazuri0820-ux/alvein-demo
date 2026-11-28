@@ -624,7 +624,7 @@ License: GPL-3+
  On Debian systems, the complete text of the GNU General
  Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".
  -->
-<style>.catalog{padding:12px;background:#211e26;margin:12px 0;color:#f2e2cb}.catalog summary{cursor:pointer;padding:8px 0}.catalog select,.catalog button{font:inherit;min-height:44px}.gallery-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px;margin:12px 0}.gallery-grid canvas{width:100%;height:auto;image-rendering:pixelated;background:#393343}</style></head><body><main><header><h1>アルヴェイン 運命の手札</h1><small id="edition">試作 0.1.16</small><details class="theme-picker"><summary>配色</summary><div class="theme-options"><button type="button" data-theme-choice="dusk"><span>宵あかね</span><span class="swatches" aria-hidden="true"><i style="background:#302735"></i><i style="background:#655069"></i><i style="background:#986d7e"></i><i style="background:#d9988b"></i><i style="background:#f2be95"></i></span></button><button type="button" data-theme-choice="reed"><span>翡翠の水路</span><span class="swatches" aria-hidden="true"><i style="background:#203536"></i><i style="background:#325052"></i><i style="background:#517470"></i><i style="background:#81a597"></i><i style="background:#c4cf9f"></i></span></button><button type="button" data-theme-choice="ember"><span>残火の城</span><span class="swatches" aria-hidden="true"><i style="background:#33292a"></i><i style="background:#544044"></i><i style="background:#805451"></i><i style="background:#b37561"></i><i style="background:#efad77"></i></span></button></div></details><details class="theme-picker"><summary>書体</summary><div class="theme-options"><button type="button" data-font-choice="grid">ドット　破甲斬</button><button type="button" data-font-choice="sans">角ゴシック　破甲斬</button><button type="button" data-font-choice="serif">明朝　破甲斬</button></div></details></header><div id="notice" class="notice" role="status"></div><div id="view"></div></main><nav class="nav" id="nav" aria-label="王国メニュー"></nav><script src="./cast-art.js"></script><script src="./recruit-sprites.js"></script><script src="./recruit-heads.js"></script><script src="./recruit-foundry.js?v=3"></script><script src="./ember-archer.js?v=3"></script><script src="./archer-parts.js?v=1"></script><script src="./lands.js"></script><script src="./road-folk.js"></script><script src="./folio.js?v=3"></script><script src="./character-art.js?v=16"></script><script src="./pixel-engine.js"></script><script src="./deck-core.js?v=0.1.14"></script><script>
+<style>.catalog{padding:12px;background:#211e26;margin:12px 0;color:#f2e2cb}.catalog summary{cursor:pointer;padding:8px 0}.catalog select,.catalog button{font:inherit;min-height:44px}.gallery-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px;margin:12px 0}.gallery-grid canvas{width:100%;height:auto;image-rendering:pixelated;background:#393343}</style></head><body><main><header><h1>アルヴェイン 運命の手札</h1><small id="edition">試作 0.1.16</small><details class="theme-picker"><summary>配色</summary><div class="theme-options"><button type="button" data-theme-choice="dusk"><span>宵あかね</span><span class="swatches" aria-hidden="true"><i style="background:#302735"></i><i style="background:#655069"></i><i style="background:#986d7e"></i><i style="background:#d9988b"></i><i style="background:#f2be95"></i></span></button><button type="button" data-theme-choice="reed"><span>翡翠の水路</span><span class="swatches" aria-hidden="true"><i style="background:#203536"></i><i style="background:#325052"></i><i style="background:#517470"></i><i style="background:#81a597"></i><i style="background:#c4cf9f"></i></span></button><button type="button" data-theme-choice="ember"><span>残火の城</span><span class="swatches" aria-hidden="true"><i style="background:#33292a"></i><i style="background:#544044"></i><i style="background:#805451"></i><i style="background:#b37561"></i><i style="background:#efad77"></i></span></button></div></details><details class="theme-picker"><summary>書体</summary><div class="theme-options"><button type="button" data-font-choice="grid">ドット　破甲斬</button><button type="button" data-font-choice="sans">角ゴシック　破甲斬</button><button type="button" data-font-choice="serif">明朝　破甲斬</button></div></details></header><div id="notice" class="notice" role="status"></div><div id="view"></div></main><nav class="nav" id="nav" aria-label="王国メニュー"></nav><script src="./cast-art.js"></script><script src="./recruit-sprites.js"></script><script src="./recruit-heads.js"></script><script src="./recruit-foundry.js?v=3"></script><script src="./ember-archer.js?v=3"></script><script src="./archer-parts.js?v=1"></script><script src="./realm.js"></script><script src="./lands.js"></script><script src="./road-folk.js"></script><script src="./folio.js?v=3"></script><script src="./character-art.js?v=16"></script><script src="./pixel-engine.js"></script><script src="./deck-core.js?v=0.1.14"></script><script>
 'use strict';
 const E=AlveinDeck,P=window.AlveinPixelEngine,$=id=>document.getElementById(id);
 const query=new URLSearchParams(location.search);
@@ -662,7 +662,7 @@ if(studio){
  storage=false;
  const pick=query.get('pick');if(!pick||['1','2','3'].includes(query.get('folio')))s.offers.forEach(p=>Folio.apply(p,Number(query.get('folio'))));
  if(/^[0-2]$/.test(pick||'')){
-   const recruit=s.offers[Number(pick)];Lands.apply(recruit,query.get("land"));RoadFolk.apply(recruit,query.get("road"));EmberArcher.apply(recruit,EmberArcher.decode(query.get("ember")));
+   const recruit=s.offers[Number(pick)];Realm.apply(recruit,query.get("realm"));Lands.apply(recruit,query.get("land"));RoadFolk.apply(recruit,query.get("road"));EmberArcher.apply(recruit,EmberArcher.decode(query.get("ember")));
    E.recruit(s,recruit.id);E.assign(s,0,recruit.id);E.start(s);
  }else tab='studio';
  $('edition').textContent='影絵工房';
@@ -1092,7 +1092,7 @@ if(mioDemo){
  selector.onchange=()=>{mioStyle=Number(selector.value);drawArt()};
 }
 // Identity comes from immutable recruitment data, so old saves need no migration.
-function drawPerson(canvas,person){if(Number.isInteger(person.landId)){Lands.draw(canvas,person.landId);return}if(Number.isInteger(person.roadId)){RoadFolk.draw(canvas,person.roadId);return}
+function drawPerson(canvas,person){if(Number.isInteger(person.realmId)){Realm.draw(canvas,person.realmId);return}if(Number.isInteger(person.landId)){Lands.draw(canvas,person.landId);return}if(Number.isInteger(person.roadId)){RoadFolk.draw(canvas,person.roadId);return}
  if(Number.isInteger(person.folioId)){Folio.draw(canvas,person.folioId);return}
  if(person.role===2&&Number.isInteger(person.emberLook)){EmberArcher.draw(canvas,person.emberLook);return}
  if(person.role===2&&Number.isInteger(person.appearanceSeed))ArcherParts.draw(canvas,(person.appearanceSeed>>>0)%27);
@@ -1161,7 +1161,7 @@ document.addEventListener('click',e=>{if(e.target.id==='gallery-parts'){galleryS
 function studioView(){
  galleryRole=0;gallerySet=0;
  const cards=s.offers.map((p,i)=>'<article>'+portrait(p)+'<h3>'+esc(p.name)+'</h3><p>'+E.roles[p.role].name+' · '+E.talents[p.talent].name+'</p><a href="'+studioUrl(batch,i)+'&amp;folio=1">試戦</a><br><a href="?recruits=1&amp;invite='+batch+'-'+i+'&amp;folio=1">本編に招く</a></article>').join('');
- return '<section class="studio"><h2>影絵工房</h2><a class="roll" href="./folio.html">残火の人物録・241人を見る</a><a class="roll" href="./cast-hall.html">残火の城の弓兵を招集する</a> <a href="./ember-maker.html">弓兵を仕立てる</a><p>候補を選ぶと、先頭に編成して一戦を試せます。</p><div class="lineup">'+cards+'</div><a class="roll" href="'+studioUrl(randomBatch())+'">次の3人を生成</a>'+gallery()+'<form><label>生成番号 <input name="studio" type="number" min="0" max="4294967295" step="1" inputmode="numeric" required value="'+batch+'"></label><button>呼び出す</button></form><a href="?recruits=1">本編の募集へ</a></section>';
+ return '<section class="studio"><h2>影絵工房</h2><a class="roll" href="./folio.html">残火の人物録・541人を見る</a><a class="roll" href="./cast-hall.html">残火の城の弓兵を招集する</a> <a href="./ember-maker.html">弓兵を仕立てる</a><p>候補を選ぶと、先頭に編成して一戦を試せます。</p><div class="lineup">'+cards+'</div><a class="roll" href="'+studioUrl(randomBatch())+'">次の3人を生成</a>'+gallery()+'<form><label>生成番号 <input name="studio" type="number" min="0" max="4294967295" step="1" inputmode="numeric" required value="'+batch+'"></label><button>呼び出す</button></form><a href="?recruits=1">本編の募集へ</a></section>';
 }
 const invitation=/^(\d{1,10})-([0-2])$/.exec(query.get('invite')||'');
 const guest=!studio&&!practice&&mode==='personal'&&invitation&&Number(invitation[1])<=4294967295
@@ -1170,6 +1170,7 @@ if(guest&&["1","2","3"].includes(query.get("folio")))Folio.apply(guest,Number(qu
 if(guest)EmberArcher.apply(guest,EmberArcher.decode(query.get("ember")));
 if(guest)RoadFolk.apply(guest,query.get("road"));
 if(guest)Lands.apply(guest,query.get("land"));
+if(guest)Realm.apply(guest,query.get("realm"));
 function guestStatus(){
  if(!storage)return '保存を利用できません';
  if(s.roster.some(p=>p.workshopId===invitation[0]||p.appearanceSeed===guest.appearanceSeed&&p.name===guest.name&&p.role===guest.role))return '所属済み';
@@ -1268,6 +1269,6 @@ document.addEventListener('click',ev=>{
   if((changed&&['start','reward','return','withdraw-now','end','end-now'].includes(a))||a==='learned-deck')window.scrollTo(0,0);
 });
 render();
-Lands.ready(drawArt);RoadFolk.ready(drawArt);Folio.ready(drawArt);AlveinCharacterArt.ready(drawArt);
+if(query.has("realm"))Realm.load(Math.floor(Number(query.get("realm"))/100)).then(drawArt);for(const k of new Set(s.roster.filter(p=>Number.isInteger(p.realmId)).map(p=>Math.floor(p.realmId/100))))Realm.load(k).then(drawArt);Lands.ready(drawArt);RoadFolk.ready(drawArt);Folio.ready(drawArt);AlveinCharacterArt.ready(drawArt);
 ArcherParts.ready(drawArt);EmberArcher.ready(drawArt);RecruitFoundry.ready.then(drawArt);
 </script></body></html>
