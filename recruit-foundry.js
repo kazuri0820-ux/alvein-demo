@@ -6,7 +6,21 @@ window.RecruitFoundry=(()=>{
  function random(seed){let x=seed>>>0;return n=>{x=(x+0x6d2b79f5)>>>0;let z=Math.imul(x^(x>>>15),x|1);z^=z+Math.imul(z^(z>>>7),z|61);return ((z^(z>>>14))>>>0)%n}}
  function identity(p){const roll=random(p.appearanceSeed),origin=roll(3),head=roll(3),coat=roll(4)?origin:roll(3),dye=roll(3);
  return {look:732+head+3*coat+9*dye,name:first[roll(12)]+last[roll(12)],origin:places[origin],card:cards[origin]}}
- function apply(p){const a=identity(p);p.emberLook=a.look;p.name=a.name;p.origin=a.origin;p.deck[0]=a.card}
+ // Each recruit has a former occupation. Its learned technique is fixed;
+ // temperament varies within a weighted pool appropriate to that occupation.
+ const trades=[
+  [['渡し綱の番人','濁流の音を聞き分け、最後の一人が渡るまで綱を張った。','ward','volley',[5,5,2]],['灯船の先導','霧の日には、燃える矢で帰港する船に水路を示した。','mark','nova',[3,3,0]]],
+  [['落とし門の衛士','味方の退路を空け、門の狭間から追手を押し返した。','ward','volley',[5,5,4]],['焼印の見張り','敵の通る橋桁に印を刻み、火矢の合図を仲間に教えた。','mark','nova',[3,3,2]]],
+  [['尾根の走り使い','追手が尾根を越す前に、一矢で仲間に危険を報せた。','arrow','volley',[4,4,0]],['火除けの剪定師','飛び火の先を読み、延焼する枝だけを射落とした。','blast','nova',[2,2,3]]]
+ ];
+ function apply(p){
+   const a=identity(p),roll=random(p.appearanceSeed^0x7139d2ab);
+   const [job,history,opening,signature,talents]=trades[places.indexOf(a.origin)][roll(2)];
+   const slot=p.deck.indexOf(p.signature);
+   if(slot>=0)p.deck[slot]=signature;
+   p.signature=signature;p.deck[0]=opening;p.talent=talents[roll(talents.length)];
+   p.emberLook=a.look;p.name=a.name;p.origin=a.origin;p.trade=job;p.tradeHistory=history;
+ }
  const cache=new Map();
  function draw(canvas,n){
  canvas.width=274;canvas.height=440;
