@@ -1,6 +1,10 @@
 window.RecruitFoundry=(()=>{
  const images=RecruitLayers.map(src=>{const im=new Image();im.src=src;return im});
- const ready=Promise.all(images.map(im=>im.decode()));
+ const headLayers=RecruitHeadLayers.map(src=>{const im=new Image();im.src=src;return im});
+ // Rows are face sockets. Exclude the guard braid on the courier and the courier
+ // fringe on the guard: their exposed temple/sideburn seams do not match.
+ const fits=[[0,2],[1,0],[2,0]],sockets=[[134,55],[141,61],[146,61]];
+ const ready=Promise.all([...images,...headLayers].map(im=>im.decode()));
  const places=['水鐘楼','焼門','灰果園'],cards=['ward','mark','arrow'];
  const first=['エ','カ','サ','シ','ナ','ハ','ミ','ユ','リ','ル','レ','ロ'],last=['イル','オ','キ','ク','セ','ト','ナ','ネ','ハ','ヤ','リ','ワ'];
  function random(seed){let x=seed>>>0;return n=>{x=(x+0x6d2b79f5)>>>0;let z=Math.imul(x^(x>>>15),x|1);z^=z+Math.imul(z^(z>>>7),z|61);return ((z^(z>>>14))>>>0)%n}}
@@ -19,26 +23,35 @@ window.RecruitFoundry=(()=>{
    const slot=p.deck.indexOf(p.signature);
    if(slot>=0)p.deck[slot]=signature;
    p.signature=signature;p.deck[0]=opening;p.talent=talents[roll(talents.length)];
-   p.emberLook=a.look;p.name=a.name;p.origin=a.origin;p.trade=job;p.tradeHistory=history;
+   const face=(a.look-732)%3,hair=fits[face][roll(2)];
+   p.emberLook=759+(a.look-732)+27*hair;p.name=a.name;p.origin=a.origin;p.trade=job;p.tradeHistory=history;
  }
  const cache=new Map();
  function draw(canvas,n){
  canvas.width=274;canvas.height=440;
- if(!images.every(im=>im.complete&&im.naturalWidth))return;
+ if(![...images,...headLayers].every(im=>im.complete&&im.naturalWidth))return;
  if(!cache.has(n)){
  const tile=document.createElement('canvas');tile.width=274;tile.height=440;const c=tile.getContext('2d');
- const k=n-732,coat=Math.floor(k/3)%3,dye=Math.floor(k/9)%3;
+ const modern=n>=759,k=modern?(n-759)%27:n-732,coat=Math.floor(k/3)%3,dye=Math.floor(k/9)%3;
  c.drawImage(images[3+coat],0,0);if(dye){
  const data=c.getImageData(0,0,274,440),v=data.data;
  for(let i=0;i<v.length;i+=4){const r=v[i],g=v[i+1],b=v[i+2];
  const cloth=coat===0?r>g*1.3&&g>b*1.5:coat===1?b>r*1.14&&b>g*1.04:r>g*1.7&&b>g*.88;
  if(cloth&&v[i+3]){const y=.28*r+.55*g+.17*b;const pal=dye===1?[.68,1.12,1.13]:[1.18,.85,1.19];for(let j=0;j<3;j++)v[i+j]=y*pal[j]}}
  c.putImageData(data,0,0)}
- c.drawImage(images[k%3],0,0);cache.set(n,tile)}
+ const face=k%3;
+ if(modern){
+   const h=Math.floor((n-759)/27)%3,dx=sockets[face][0]-sockets[h][0],dy=sockets[face][1]-sockets[h][1];
+   if(h!==face){
+     const [x,y]=sockets[face];c.fillStyle=['#534238','#56412e','#674336'][face];
+     c.beginPath();c.ellipse(x-4,y-4,11,13,0,0,2*Math.PI);c.fill();
+   }
+   c.drawImage(headLayers[h+3],dx,dy);c.drawImage(headLayers[face],0,0);
+ }else c.drawImage(images[face],0,0);cache.set(n,tile)}
  canvas.getContext('2d').drawImage(cache.get(n),0,0)
  }
  function batch(seed,slot,used=[]){let b=(seed+Math.imul(slot,2654435761))>>>0;
  for(;;){const offers=AlveinDeck.init(b).offers,i=offers.findIndex(p=>p.role===2);
- if(i>=0){const p=offers[i];apply(p);if(!used.some(v=>v.p.name===p.name||(v.p.emberLook-732)%9===(p.emberLook-732)%9))return {p,i,b}}b=(b+1)>>>0}}
+ if(i>=0){const p=offers[i];apply(p);if(!used.some(v=>v.p.name===p.name||(v.p.emberLook-759)%3===(p.emberLook-759)%3))return {p,i,b}}b=(b+1)>>>0}}
  return {batch,apply,draw,ready};
 })();
