@@ -4,10 +4,12 @@ window.EmberArcher=(()=>{
  const origins=['翠雨の森','北方の砦','赤土の村'];
  const card=['mark','ward','arrow'];
  const names=['森の猟番','城壁の番兵','灰路の伝令'];
+ const cast=(window.CastArt||[]).map(src=>{const im=new Image();im.src=src;return im});
  const digit=(n,k)=>Math.floor(n/3**k)%3;
- function valid(n){return Number.isInteger(n)&&n>=0&&n<729}
+ function valid(n){return Number.isInteger(n)&&n>=0&&n<732}
  function decode(s){if(!/^\d{1,3}$/.test(s||''))return null;const n=Number(s);return valid(n)?n:null}
  function draw(canvas,n){
+   if(n>=729&&n<=731){canvas.width=160;canvas.height=200;const im=cast[n-729];if(im&&im.naturalWidth){const w=Math.round(198*im.width/im.height);canvas.getContext('2d').drawImage(im,(160-w)/2,2,w,198)}return}
    canvas.width=64;canvas.height=80;if(!valid(n)||!heads.naturalWidth||!body.naturalWidth)return;
    const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
    function layer(image,row,index){ctx.drawImage(image,index*64,row*80,64,80,0,0,64,80)}
@@ -22,10 +24,11 @@ window.EmberArcher=(()=>{
    layer(heads,3,hood);
  }
  function apply(p,n){if(!p||p.role!==2||!valid(n))return;
+   if(n>=729){const i=n-729;p.emberLook=n;p.name=['ナギ','イゼル','ルカ'][i];p.origin=['水鐘楼','焼門','灰果園'][i];p.deck[0]=['ward','mark','arrow'][i];return}
    const o=digit(n,5);p.emberLook=n;p.origin=origins[o];
    // Keep the opening deck size and signature. The background determines its first common card.
    p.deck[0]=card[o];
  }
- function ready(fn){Promise.all([heads,body].map(im=>im.decode())).then(fn)}
+ function ready(fn){Promise.all([heads,body,...cast].map(im=>im.decode())).then(fn)}
  return {digit,draw,decode,apply,ready,names,card,origins};
 })();
