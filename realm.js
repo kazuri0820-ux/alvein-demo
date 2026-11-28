@@ -1,13 +1,17 @@
 window.Realm=(()=>{
-const titles=['潮路の岬','銅嶺の山道','月川の灯市'],images=[],loads=[];
+const titles=['潮路の岬','銅嶺の山道','月川の灯市','葦原の渡り宿','白砂の隊商路','星祀りの百霊','朝霧の橋','翠葉の庭','琥珀の宿','藍染の里','夕凪の港'],images=[],loads=[];
+const retired=new Set([4, 11, 13, 15, 19, 22, 24, 26, 27, 28, 29, 31, 33, 34, 35, 36, 37, 38, 39, 43, 46, 47, 48, 49, 51, 52, 53, 55, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 102, 105, 106, 109, 111, 112, 114, 115, 116, 118, 119, 121, 123, 125, 126, 127, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 201, 202, 204, 205, 206, 207, 209, 210, 212, 214, 215, 216, 217, 218, 219, 220, 221, 223, 224, 225, 226, 227, 228, 229, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299]);
+const folioRetired=new Set([10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29, 31, 33, 35, 36, 37, 38, 39, 41, 42, 43, 44, 46, 47, 48, 49, 50, 51, 54, 55, 56, 57, 58, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99]),landRetired=new Set([11, 14, 19, 22, 30, 41, 47, 69, 83, 93]);
 function supply(k,url){const im=new Image();images[k]=im;im.src=url}
 function load(k){if(!loads[k])loads[k]=new Promise((ok,fail)=>{const s=document.createElement('script');s.src='./realm-art'+k+'.js';s.onload=()=>images[k].decode().then(ok,fail);s.onerror=fail;document.head.append(s)});return loads[k]}
 function draw(c,i){c.width=40;c.height=48;c.dataset.realm=String(i);const k=Math.floor(i/100),j=i%100;function paint(){if(c.dataset.realm===String(i))c.getContext('2d').drawImage(images[k],j%10*40,Math.floor(j/10)*48,40,48,0,0,40,48)}if(images[k]?.naturalWidth)paint();else load(k).then(paint)}
-const stems=['アレ カイ セラ ドゥ ミオ グラ ノエ トリ ハル リュ','エル バル ティ オル ベル ラグ アス ディ ヴェ ユル','アサ ユウ ミツ サヨ トウ ヒナ キヨ ツキ ハナ シラ'].map(s=>s.split(' '));
-const ends=['オル ナ リス サム ト ルカ ミヤ レン コア ネス','ドン ダ サル ガル メル トム ハン ラフ ノル テル','ノ ネ ハ ナギ マル リ ホ セ ヤ ネリ'].map(s=>s.split(' '));
-function name(i){let k=Math.floor(i/100),j=i%100;return stems[k][j%10]+ends[k][(Math.floor(j/10)+3*j)%10]}
+const stems=['アレ カイ セラ ドゥ ミオ グラ ノエ トリ ハル リュ','エル バル ティ オル ベル ラグ アス ディ ヴェ ユル','アサ ユウ ミツ サヨ トウ ヒナ キヨ ツキ ハナ シラ','オト ナオ チセ モヨ ラカ エナ ナホ キナ ウル ニオ','バヤ スル ニマ タラ ラム ナダ テヤ カリ ファル ダリ','銀枝 碧潮 折紙 灰燼 青銅 月白 蝕影 翡翠 虹翅 黒曜'].map(s=>s.split(' '));
+const ends=['オル ナ リス サム ト ルカ ミヤ レン コア ネス','ドン ダ サル ガル メル トム ハン ラフ ノル テル','ノ ネ ハ ナギ マル リ ホ セ ヤ ネリ','ヤ ワ ネ ト リ セ マ ミ ハ ノ','ハン ディ ルン マ ザル シア レン ドゥ タル イル','の使い の渡守 の主 の語り部 の舞手 の守護者 の導師 の星詠み の番人 の巡礼'].map(s=>s.split(' '));
+const newStems=['リタ コウ ナラ エミ ルド モズ フワ イネ ウミ ヘル','ピノ タロ ジル チリ マウ ホロ ラナ イヅ ユナ マス','トス マキ ロラ セミ ルウ ブラ カヌ ワタ オマ ジュ','ツル セオ タズ アノ マド ヨイ ルリ ウタ ヌカ ビワ','ヒワ ベノ マイ ニワ ケオ ウズ クマ フセ メカ ミモ'];
+const newEnds='ナミ リク レイ ホノ ネム サギ キリ タマ ヨリ ソラ'.split(' ');
+function name(i){let k=Math.floor(i/100),j=i%100;if(k>5)return newStems[k-6].split(" ")[j%10]+newEnds[Math.floor(j/10)];if(k===5)return stems[k][Math.floor(j/10)]+ends[k][j%10];return stems[k][j%10]+ends[k][(Math.floor(j/10)+3*j)%10]}
 function role(i){return (i+Math.floor(i/10))%4}
-function apply(p,v){if(!/^\d{1,3}$/.test(v??'')||+v>=300||p.role!==role(+v))return;p.realmId=+v;p.name=name(+v);p.origin=titles[Math.floor(v/100)]}
+function apply(p,v){if(!/^\d{1,4}$/.test(v??'')||+v>=1100||retired.has(+v)||p.role!==role(+v))return;p.realmId=+v;if(+v>=500&&+v<600)p.rarity='rare';p.name=name(+v);p.origin=titles[Math.floor(v/100)]}
 function entry(i){let n=900000+i*200;for(;;n++){let j=AlveinDeck.init(n).offers.findIndex(p=>p.role===role(i));if(j>=0)return[n,j]}}
-return {titles,load,supply,draw,name,role,apply,entry};
+return {retired,folioRetired,landRetired,titles,load,supply,draw,name,role,apply,entry};
 })();
