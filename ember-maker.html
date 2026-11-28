@@ -1,0 +1,28 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>弓兵の仕立室｜アルヴェイン</title><style>
+*{box-sizing:border-box}body{margin:0;background:#201f22;color:#f3e8d6;font:16px system-ui,sans-serif}main{max-width:460px;margin:auto;padding:14px 18px 24px}header,.row,footer{display:flex;align-items:center;justify-content:space-between;gap:8px}h1{font:600 24px serif;margin:8px 0}a{color:#e8d2b2}header a{font-size:14px}.stage{background:radial-gradient(ellipse at 50% 60%,#62605c,#3c3736 75%);border:1px solid #6a5c50;text-align:center;margin:6px 0 12px}.stage canvas{width:128px;height:160px;vertical-align:bottom;margin:12px auto;image-rendering:pixelated}fieldset{margin:0 0 8px;padding:3px 0;border:0}legend{color:#cfb89c;font:15px serif}button,footer a{min-height:44px;border:1px solid #645952;border-radius:3px;background:#363032;color:#f3e8d6;font:inherit;cursor:pointer;touch-action:manipulation}.row button{flex:1;font-size:14px}.row [aria-pressed=true]{background:#5d473b;border-color:#e5bd85}footer{margin-top:12px;flex-wrap:wrap}footer>*{flex:1;text-align:center;padding:10px 4px;white-space:nowrap}footer a:last-child{background:#6a4834}small{display:block;color:#c2b2a1;margin-top:10px}
+small{margin:7px 0}.stage canvas{margin:2px auto}fieldset{margin-bottom:3px}</style><main><header><h1>弓兵の仕立室</h1><a href="./deck-destiny.html?studio">工房へ</a></header><div class="stage"><canvas id="preview" width="64" height="80" aria-label="組み合わせた弓兵"></canvas></div><small id="recipe" aria-live="polite"></small><section id="parts"></section><footer><button id="randomize">おまかせ</button><a id="trial">試戦</a><a id="invite">本編に招く</a></footer></main><script src="./ember-archer.js?v=1"></script><script src="./deck-core.js"></script><script>
+const A=EmberArcher,byId=id=>document.getElementById(id);
+const fields=[['顔','髭の深い顎','傷のある頬','そばかす'],['髪','銀の短髪','白筋の黒髪','赤い結い髪'],['頭巾','素顔','苔色の頭巾','灰紫の頭巾'],['外套と弓','苔色の外套','藍の肩掛け','灰の襟巻き'],['脚','旅の短靴','衛士の長靴','伝令の革靴'],['出自',...A.names]];
+let code=A.decode(new URLSearchParams(location.search).get('ember'))??0;
+const rows=fields.map(([label,...items],k)=>{
+ const field=document.createElement('fieldset'),legend=document.createElement('legend'),row=document.createElement('div');legend.textContent=label;row.className='row';field.append(legend,row);byId('parts').append(field);
+ return items.map((name,i)=>{const b=document.createElement('button');b.textContent=name;b.onclick=()=>select(code+(i-A.digit(code,k))*3**k);row.append(b);return b});
+});
+function select(n){
+ code=n;rows.forEach((r,k)=>r.forEach((b,i)=>b.setAttribute('aria-pressed',String(A.digit(n,k)===i))));
+ A.draw(byId('preview'),n);
+ let batch=100000+n,i=-1;
+ while(i<0){i=AlveinDeck.init(batch).offers.findIndex(p=>p.role===2);if(i<0)batch+=729}
+ const suffix='&ember='+n;
+ byId('trial').href='./deck-destiny.html?studio='+batch+'&pick='+i+suffix;
+ byId('invite').href='./deck-destiny.html?recruits=1&invite='+batch+'-'+i+suffix;
+ const o=A.digit(n,5);byId('recipe').textContent=A.origins[o]+'出身　初期札「'+AlveinDeck.cards[A.card[o]][0]+'」　／　仕立て番号 '+n;
+ history.replaceState(null,'','?ember='+n);
+}
+byId('randomize').onclick=()=>{
+ const r=crypto.getRandomValues(new Uint32Array(6)),o=r[5]%3;
+ const d=[r[0]%3,r[1]%3,r[2]%3,r[3]%5<3?o:r[3]%3,r[4]%3,o];
+ select(d.reduce((v,x,k)=>v+x*3**k,0));
+};
+A.ready(()=>select(code));
+</script></html>
