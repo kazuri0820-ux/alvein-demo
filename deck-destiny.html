@@ -658,14 +658,27 @@ try{
 }
 if(!s){
  s=E.init(studio?batch:undefined);
- if(!studio&&!practice)s.offers.filter(p=>p.role===2).forEach(RecruitFoundry.apply);
+
  if(mioDemo){s.roster.find(p=>p.id===s.party[0]).name='ミオ';E.start(s,mode)}
 }
 for(const p of [...s.roster,...s.offers])Fighters.migrate(p);
 if(s.run)for(const hero of s.run.heroes){const p=s.roster.find(person=>person.id===hero.id);if(p?.fighterId!=null)hero.name=p.name}
+function dressOffers(){
+ const taken=new Set([...s.roster,...s.offers].map(p=>p.fighterId).filter(Fighters.valid));
+ for(const p of s.offers){
+  if(Fighters.valid(p.fighterId))continue;
+  let id=Fighters.pick(p);
+  for(let offset=0;offset<Fighters.count;offset++){
+   const next=(id+offset)%Fighters.count;
+   if(+Fighters.roles[next]===p.role&&!taken.has(next)){id=next;break}
+  }
+  Fighters.use(p,id);taken.add(id);
+ }
+}
+dressOffers();
 if(studio){
  storage=false;
- const pick=query.get('pick');s.offers.forEach(p=>Fighters.use(p,Fighters.pick(p)));
+ const pick=query.get('pick');
  if(/^[0-2]$/.test(pick||'')){
    const recruit=s.offers[Number(pick)];if(fighterId!==null)Fighters.use(recruit,fighterId);EmberArcher.apply(recruit,EmberArcher.decode(query.get("ember")));
    E.recruit(s,recruit.id);E.assign(s,0,recruit.id);E.start(s);
@@ -1177,7 +1190,7 @@ if(guest){
 }
 function guestStatus(){
  if(!storage)return '保存を利用できません';
- if(s.roster.some(p=>p.workshopId===invitation[0]||p.appearanceSeed===guest.appearanceSeed&&p.name===guest.name&&p.role===guest.role))return '所属済み';
+ if(s.roster.some(p=>(Fighters.valid(guest.fighterId)&&p.fighterId===guest.fighterId)||p.workshopId===invitation[0]||p.appearanceSeed===guest.appearanceSeed&&p.name===guest.name&&p.role===guest.role))return '所属済み';
  if(s.run)return '帰還後に採用できます';
  if(s.roster.length>=40)return '所属人数が上限です';
  if(s.coins<1)return '募集令が必要です';
@@ -1230,8 +1243,8 @@ document.addEventListener('click',ev=>{
     s.coins--;s.roster.push(member);E.assign(s,0,member.id);changed=true;
     notice=member.name+'を採用し、先頭に編成しました。';tab='home';
   }
-  else if(a==='recruit')changed=E.recruit(s,n);
-  else if(a==='scout'){changed=E.scout(s);if(changed)s.offers.filter(p=>p.role===2).forEach(RecruitFoundry.apply)}
+  else if(a==='recruit'){changed=E.recruit(s,n);if(changed)dressOffers()}
+  else if(a==='scout'){changed=E.scout(s);if(changed)dressOffers()}
   else if(a==='assign')changed=E.assign(s,slot,n);
   else if(a==='detail'){detail=n;learn=null}
   else if(a==='close'){detail=null;learn=null}
